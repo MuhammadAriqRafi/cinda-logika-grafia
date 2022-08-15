@@ -25,7 +25,7 @@ class Home extends BaseController
         $this->data['desc'] = "From the invention to deployment and forward, we design and experience is very interesting.";
         return $this->twig->render("contents/frontend/services", $this->data);
     }
-    
+
     public function Contact()
     {
         $this->data['title'] = "Contact Us | " . $this->data['sitename'];
@@ -38,7 +38,7 @@ class Home extends BaseController
         $this->data['title'] = "Insight | " . $this->data['sitename'];
         $this->data['desc'] = "We present to you many technology informations to support your mobilization.";
         $model = new \App\Models\Posts();
-        $this->data['posts'] = $model->findAll(0,4);
+        $this->data['posts'] = $model->findAll(0, 4);
         return $this->twig->render("contents/frontend/insight", $this->data);
     }
 
@@ -48,8 +48,7 @@ class Home extends BaseController
         $this->data['post'] = $model->where('slug', $slug)->first();
         $this->data['title'] = $this->data['post']['title'] . " | " . $this->data['sitename'];
         $this->data['desc'] = $this->data['post']['excerpt'];
-        $this->data['posts'] = $model->where("id !=", $this->data['post']['id'])->findAll(0,3);
+        $this->data['posts'] = $model->where("id !=", $this->data['post']['id'])->findAll(0, 3);
         return $this->twig->render("contents/frontend/detail", $this->data);
     }
-
 }

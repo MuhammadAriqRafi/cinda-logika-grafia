@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Controllers\Frontend;
+namespace App\Controllers\Backend;
 
 use CodeIgniter\Controller;
-use CodeIgniter\HTTP\CLIRequest;
-use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Kenjis\CI4Twig\Twig;
 
 abstract class BaseController extends Controller
 {
@@ -19,7 +18,7 @@ abstract class BaseController extends Controller
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
-        $this->twig = new \Kenjis\CI4Twig\Twig(['cache' => false]);
+        $this->twig = new Twig(['cache' => false]);
 
         $this->data['sitename'] = "Cinda Logika Grafia";
         $this->data['sitedesc'] = "Delivering Integrated IT Solutions";

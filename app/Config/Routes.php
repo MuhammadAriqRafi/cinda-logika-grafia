@@ -21,6 +21,17 @@ $routes->get('/insight', 'Home::Insight');
 $routes->get('/contact', 'Home::Contact');
 $routes->get('/detail/(:any)', 'Home::Detail/$1');
 
+// Backend Routes
+$routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+    // Dashboard
+    $routes->get('/', 'PageController::index');
+
+    // Posts
+    $routes->group('posts', function ($routes) {
+        $routes->get('/', 'PostController::index');
+    });
+});
+
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
