@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Controllers\Backend\Interfaces\CRUDInterface;
+use App\Controllers\Backend\Interfaces\DatatableInterface;
 use CodeIgniter\Model;
 
-class Posts extends Model
+class Posts extends Model implements DatatableInterface, CRUDInterface
 {
     protected $DBGroup          = 'default';
     protected $table            = 'posts';
@@ -14,7 +16,7 @@ class Posts extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'date', 'title', 'slug', 'excerpt', 'content', 'category', 'cover'];
+    protected $allowedFields    = ['date', 'title', 'slug', 'excerpt', 'content', 'category', 'cover'];
 
     // Dates
     protected $useTimestamps = false;
@@ -32,11 +34,45 @@ class Posts extends Model
     // Callbacks
     protected $allowCallbacks = true;
     protected $beforeInsert   = [];
-    protected $afterInsert    = [];
     protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+
+    public function getRecords($start, $length, $orderColumn, $orderDirection): array
+    {
+        return $this->select('id, title, category, excerpt')
+            ->orderBy($orderColumn, $orderDirection)
+            ->findAll($length, $start);
+    }
+
+    public function getTotalRecords(): int
+    {
+        return $this->countAllResults() ?? 0;
+    }
+
+    public function getRecordSearch($search, $start, $length, $orderColumn, $orderDirection): array
+    {
+        return $this->select('id, title, category, excerpt')
+            ->orderBy($orderColumn, $orderDirection)
+            ->like('title', $search)
+            ->orLike('category', $search)
+            ->orLike('excerpt', $search)
+            ->findAll($length, $start);
+    }
+
+    public function getTotalRecordSearch($search): int
+    {
+        return $this->select('id, title, category, excerpt')
+            ->like('title', $search)
+            ->orLike('category', $search)
+            ->orLike('excerpt', $search)
+            ->countAllResults();
+    }
+
+    public function fetchValidationRules(): array
+    {
+        return $rules = [
+            'title' => 'required',
+            'excerpt' => 'required',
+            'content' => 'required',
+        ];
+    }
 }

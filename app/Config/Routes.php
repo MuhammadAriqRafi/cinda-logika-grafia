@@ -28,7 +28,11 @@ $routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function (
 
     // Posts
     $routes->group('posts', function ($routes) {
-        $routes->get('/', 'PostController::index');
+        $routes->get('/', 'PostController::index', ['as' => 'backend.posts.index']);
+        $routes->get('(:any)', 'PostController::$1');
+        $routes->post('(:any)', 'PostController::$1');
+        $routes->patch('(:any)', 'PostController::$1');
+        $routes->delete('(:any)', 'PostController::$1');
     });
 });
 
