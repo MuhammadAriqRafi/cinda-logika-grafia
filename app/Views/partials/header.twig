@@ -1,0 +1,30 @@
+<div class="position-absolute top-0 end-0">
+	<img src="{{base_url('assets/images/group.png')}}" class="img-fluid" width="220px" style="z-index:-10" />
+</div>
+<nav id="navbar" class="navbar navbar-dark navbar-expand-md bg-transparent">
+	<div class="container px-0">
+		<a class="navbar-brand" title="" href="{{base_url('/')}}">
+			<img src="{{base_url('/assets/images/logo.png')}}" class="d-none brand d-md-block">
+			<img src="{{base_url('/assets/images/logo-small.png')}}" class="d-md-none brand d-sm-block">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse me-auto" id="navbarNav">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0 main-menu">
+				<li class="nav-item ms-3">
+					<a class="nav-link wit fs08r fw300p text-uppercase about" aria-current="about" href="{{base_url('about')}}">About</a>
+				</li>
+				<li class="nav-item ms-3">
+					<a class="nav-link wit fs08r fw300p text-uppercase service" aria-current="page" href="{{base_url('services')}}">Service</a>
+				</li>
+				<li class="nav-item ms-3">
+					<a class="nav-link wit fs08r fw300p text-uppercase insight" aria-current="page" href="{{base_url('insight')}}">Insight</a>
+				</li>
+				<li class="nav-item ms-3">
+					<a class="nav-link wit fs08r fw300p text-uppercase contact" aria-current="page" href="{{base_url('contact')}}">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

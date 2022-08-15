@@ -1,0 +1,113 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+	<section class="content about-header position-relative" id="about-header">
+		<img src="{{base_url('/assets/images/contact-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<div class="d-flex justify-content-center" id="about-header-text">
+			<div class="d-flex align-items-center">
+				<div class="d-block">
+				<h1 class="text-white bet text-uppercase fs35r text-center d-block" id="about-header-text" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+					Great relationship<br />begin with a smart<br />conservation
+				</h1>
+				<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" id="about-header-text" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
+					let us know what your <span class="text-primary">craziest dream are</span>, and we<br />
+					will do our best to make them come true.
+				</p>
+				</div>
+			</div>
+		</div>
+		<aside class="page-title position-absolute bottom-0 end-0">
+			<div class="position-relative end-0 text-secondary" id="about-header-text" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="300">
+				<h3 class="bet fs40r ms-auto me-5 pe-5">05 /</h3>
+				<h3 class="bet fs60r ms-auto text-uppercase rotate d-inline-block position-absolute top-0" style="right:-150px">contact</h3>
+			</div>
+		</aside>
+	</section>
+	<section class="content short-story">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-9">
+					<div class="position-relative mb-5">
+						<h2 class="kal text-white blue-line fs20r ps-5">We want to get to know you</h2>
+					</div>
+					<form>
+						<div class="row mb-5">
+							<div class="col">
+								<label class="text-white form-label fw-bold">Full Name</label>
+								<input type="text" class="form-control frm-inp rounded-pill" />
+							</div>
+							<div class="col">
+								<label class="form-label text-white fw-bold">E-mail</label>
+								<input type="text" class="form-control frm-inp rounded-pill" />
+							</div>
+						</div>
+						<div class="row mb-5">
+							<div class="col">
+								<label class="text-white form-label fw-bold">Telephone</label>
+								<input type="text" class="form-control frm-inp rounded-pill" />
+							</div>
+							<div class="col">
+								<label class="form-label text-white fw-bold">Subject</label>
+								<input type="text" class="form-control frm-inp rounded-pill" />
+							</div>
+						</div>
+						<div class="row mb-5">
+							<div class="col">
+								<label class="text-white form-label fw-bold">What's on your mind</label>
+								<textarea  class="form-control frm-inp rounded-5" rows="5"></textarea>
+							</div>
+						</div>
+						<div class="text-end">
+							<button class="kal fs15r bg-transparent border-0 text-white text-uppercase">
+								Send <img src="{{base_url('assets/images/arrow.png')}}" height="25px" />
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content vision py-5 position-relative mb-5">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-10">
+					<h2 class="bet fs30r text-white">Don't blindy<br />follow the crowd</h2>
+					<p class="text-white pb-4">Let's grow together!</p>
+					<aside class="d-flex text-white contact fs08r">
+						<ul class="d-inline-block border-start pe-5 list">
+							<li class="fs09r bolder kal">CONTACT</li>
+							<li>hello@cindalogikagrafia.com</li>
+							<li>www.cindalogikagrafia.com</li>
+							<li>+62 811 7911 121</li>
+						</ul>
+						<ul class="d-inline-block border-start">
+							<li class="fs09r kal bolder">VISIT</li>
+							<li>Villa Citra 2 Blok G1/16 Jagabaya III</li>
+							<li>Way Halim Bandar Lampung</li>
+							<li>35113</li>
+						</ul>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+	body {
+		background-image: url('{{base_url('assets/images/contact-footer.png')}}');
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: bottom center;
+	}
+</style>
+<script>
+		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
+        window.addEventListener('load', (event) => { Sized(); });
+        window.addEventListener('resize', (event) => { Sized(); });
+        document.querySelector(".main-menu li a").classList.remove('active');
+        document.querySelector(".contact").classList.add('active');
+
+</script>
+{% endblock %}

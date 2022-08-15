@@ -1,0 +1,163 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+	<section class="content about-header position-relative" id="about-header">
+		<img src="{{base_url('/assets/images/services-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<div class="d-flex justify-content-center" id="about-header-text">
+			<div class="d-flex align-items-center">
+				<div class="d-block">
+					<h1 class="text-white bet text-uppercase fs35r text-center d-block" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+						LET US TELL YOU<br/>ABOUT OUR SERVICES
+					</h1>
+					<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
+						from the invention to deployment and forward, we design and experience<br/>
+						is very interesting. informed by user behavior studies and analytics.<br/>
+						our design and development teams are integrated,<br/>
+						to take a special care of our products.
+					</p>
+				</div>
+			</div>
+		</div>
+		<aside class="page-title position-absolute bottom-0 end-0" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+			<div class="position-relative end-0 text-secondary">
+				<h3 class="bet fs40r ms-auto me-5 pe-5">03 /</h3>
+				<h3 class="bet fs60r ms-auto text-uppercase rotate d-inline-block position-absolute top-0">service</h3>
+			</div>
+		</aside>
+	</section>
+	<section class="mb-5">
+		<h2 class="kal fs15r text-center text-uppercase text-white">in order to fulfill our customer's demands<br/>on solutions based information technology,<br/>we provide many services, such as</h2>
+	</section>
+	<section class="content short-story">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col">
+					<aside class="pb-5">
+						<a class="services text-end" href="javascript:void(0);" data-for="digital">
+							<h2 class="kal fs12r bolder text-uppercase">Digital<br/>marketing</h2>
+							<p class="fs07r">Marketing activities, public awareness, and public communication was just  printed on papers, billboard, banners and meny convensional media has now change into internet/online based platform.</p>
+						</a>
+					</aside>
+					<aside class="pt-5">
+						<a class="services text-end" href="javascript:void(0);" data-for="software">
+							<h2 class="kal fs12r bolder">SOFTWARE<br/>DEVELOPMENT</h2>
+							<p class="fs07r">Software development service focused on web and mobile based software/apps has proven to have more benefits and adaptive to the needs of our clients.</p>
+						</a>
+					</aside>
+				</div>
+				<div class="col-6 pt-5">
+					<div>
+						<img src="{{base_url('/assets/images/people.png')}}" class="img-fluid w-100"/>
+					</div>
+				</div>
+				<div class="col">
+					<aside class="pb-5">
+						<a class="services" href="javascript:void(0);" data-for="system">
+							<h2 class="kal fs12r bolder">SYSTEM<br/>INTEGRATOR</h2>
+							<p class="fs07r">The complexity of customer demand of  integrator system service is needed, the need of variant of data the related to eac division or department of an organization becomes the reason why this service is necessary.</p>
+						</a>
+					</aside>
+					<aside class="pt-5">
+						<a class="services" href="javascript:void(0);" data-for="it">
+							<h2 class="kal fs12r text-uppercase bolder">IT infrastructure &<br/>implementation</h2>
+							<p class="fs07r">At this services, CLG collaborate with  Infrastructure and technological information and communication leading companies that has expertise on spesific fields. The goal is to provide the best IT product and highest  quality that meets customers qualifications as well as giving the maximum services.</p>
+						</a>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content vision py-5 position-relative mb-5">
+		<h2 class="bet text-uppercase fs30r text-white text-center">we present to you<br/>the best experiences</h2>
+	</section>
+
+	<div class="modal fade service-dialog" id="floatWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg rounded-0">
+			<div class="modal-content">
+				<div class="modal-header border-0">
+					<button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body pb-5 px-5">
+					<div class="row digital d-none">
+						<div class="col">
+							<img src="{{base_url('assets/images/service-digital.png')}}" class="img-fluid w-100" />
+						</div>
+						<div class="col text-white">
+							<h3 class="fs12r kal bolder">DIGITAL MARKETING</h3>
+							<div class="fs08r">
+								<p>Marketing activities, public awareness, and public communication was just printed on papers, billboard, banners and meny convensional media has now change into internet/online based platform. As a  marketing tools, Social media, website and applicaion mobile could reach wider network and more effective. That makes advetiser chose those platforms instead of convensional media. To accomdate that demands, CLG provides digital agency services as followed: website development, social media management, content creator and videography.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row software d-none">
+						<div class="col">
+							<img src="{{base_url('assets/images/service-software.png')}}" class="img-fluid w-100" />
+						</div>
+						<div class="col text-white">
+							<h3 class="fs12r kal bolder">SOFTWARE DEVELOPMENT</h3>
+							<div class="fs08r">
+								<p>The high demands of applications/sofwares in many segments made CGL focusing on the basic solution to provide our clients to help their business activities work easier.</p>
+								<p>In the process of creating softwares, CLG has  committed on using stadard project management  (software development life cycle). With this method, we could analize the details of the clients needs and their working invironment at the first face of software development. The result developing software/Apps  process is very beneficial for the clients.</p>
+								<p>Software development service focused on web and mobile based software/apps has proven to have more benefits and adaptive to the needs of our clients.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row system d-none">
+						<div class="col">
+							<img src="{{base_url('assets/images/service-system.png')}}" class="img-fluid w-100" />
+						</div>
+						<div class="col text-white">
+							<h3 class="fs12r kal bolder">SYSTEM INTEGRATOR</h3>
+							<div class="fs08r">
+								<p>The complexity of customer demand of integrator system service is needed, the need of variant of data the related to eac division or department of an  organization becomes the reason why this service is necessary.</p>
+								<p>Many middle to high scale of industries and  organization is prefer to chose Integrated technology services or products that has the ability to integrate many system/sub system that created. System that integrated with one another creates the more  accorate data, to be the refenrence for leader to make a perfect desicion.</p>
+								<p>CLG system integrator, includes software/apps  development bridging with integrated application,  executive dashboad application to present reports and analize some system, application that based on IOT (internet of things) to proceed automation, also  solution that based on Integrated Technolony  architecture, such as: Network, Server, Storage,  Database and application. </p>
+							</div>
+						</div>
+					</div>
+					<div class="row it d-none">
+						<div class="col">
+							<img src="{{base_url('assets/images/service-it.png')}}" class="img-fluid w-100" />
+						</div>
+						<div class="col text-white">
+							<h3 class="fs12r kal bolder">IT INFRASTRUCTURE & IMPLEMENTATION</h3>
+							<div class="fs08r">
+								<p>To support and maximise the software development  services, integrated system, and digital agency CLG provides IT infrastructure solutions and implementation that includes providing server, license of software/ system/database, komputer network, co-location server/data center including IT maintanance services to maximize the performance of our high quality system.</p>
+								<p>At this services, CLG collaborate with Infrastructure and technological information and communication  leading companies that has expertise on spesific fields. The goal is to provide the best IT product and highest quality that meets customers qualifications as well as giving the maximum services.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>
+		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; }
+		window.addEventListener('load', (event) => { Sized(); });
+		window.addEventListener('resize', (event) => { Sized(); });
+		document.querySelector(".main-menu li a").classList.remove('active');
+		document.querySelector(".service").classList.add('active');
+		$(document).ready(function(){
+			$('a.services').on('click', function(e){
+				e.preventDefault();
+				var _for = $(this).data('for');
+				$('#floatWindow').modal('show');
+				$('#floatWindow .modal-body').find('.' + _for).removeClass('d-none');
+			});
+
+			$('#floatWindow').on('show.bs.modal', function(){
+				if(!$(this).parent().is('body')) {
+					$(this).appendTo('body');
+				}
+				$('body').children().not(this).addClass('blur');
+			}).on('hide.bs.modal', function(){
+				$('body').children().not(this).removeClass('blur');
+				$('#floatWindow .modal-body .row').addClass('d-none')
+			});
+		});
+	</script>
+{% endblock %}

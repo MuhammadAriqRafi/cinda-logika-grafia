@@ -1,0 +1,61 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+	<section class="content about-header position-relative" id="about-header" style="max-height:100vh;overflow:hidden;">
+		<img src="{{base_url('/media/article/' ~ post.cover)}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<div class="d-flex justify-content-center" id="about-header-text" style="background-color: rgba(0,0,0,.5)">
+			<div class="d-flex align-items-center w-50">
+				<div class="d-block">
+					<h1 class="text-white fs25r text-center d-block">
+						{{post.title}}
+					</h1>
+					<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r">
+						<span class="me-2">{{post.category}}</span>
+						{{post.date|date('d/m/Y')}}
+					</p>
+					<div class="text-center d-inline-block">
+						<a class="d-inline-block scroll" href="#content">
+							<span class="text-white fs07r text-uppercase d-block mb-3">Scroll Down</span>
+							<img src="{{base_url('assets/images/arrow.png')}}" class="me-auto ms-auto" style="width:50%;transform:rotate(90deg)"/>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content short-story py-5" id="content">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-8 text-white fs09r">
+					{{post.content|raw}}
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content vision py-5 position-relative mb-5">
+        <div class="container">
+            <div class="row">
+                {% for item in posts %}
+					<article class="text-white col">
+						<img src="{{base_url('media/article/thumb_' ~ item.cover)}}" class="img-fluid w-100" />
+						<div class="meta fs08r py-2">
+							<span class="text-secondary text-uppercase me-2">{{item.category}}</span> {{item.date|date('d/m/Y')}}
+						</div>
+						<h2 class="fs12r">{{item.title}}</h2>
+						<a href="{{base_url('detail/' ~ item.slug)}}" class="linkin text-uppercase fs08r">more</a>
+					</article>						
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
+        window.addEventListener('load', (event) => { Sized(); });
+        window.addEventListener('resize', (event) => { Sized(); });
+        document.querySelector(".main-menu li a").classList.remove('active');
+        document.querySelector(".insight").classList.add('active');
+	</script>
+{% endblock %}

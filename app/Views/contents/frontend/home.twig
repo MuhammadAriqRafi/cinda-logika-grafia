@@ -1,0 +1,26 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+<section class="content home-content" id="main-content">
+	<div class="container">
+		<div id="lead-text" class="d-flex align-items-center" style="height:100vh">
+				<div class="d-block ps-5" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-duration="2000" data-aos-delay="200">
+					<h1 class="text-white ps-5 fs50r">
+						Expand <br />your mind <br />with big idea
+					</h1>
+				</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block background %}
+	<div id="bg-vid" class="bg-vid">
+		<div class="video-wrapper">
+			<video muted="muted" loop="loop" playsinline autoplay>
+				<source src="{{base_url('/media/video/1644039981_84f1b5e5bf7f66b19625.mp4')}}" loading="lazy" type="video/mp4">
+			</video>
+		</div>
+		<div class="video-overlay"></div>
+	</div>
+{% endblock %}

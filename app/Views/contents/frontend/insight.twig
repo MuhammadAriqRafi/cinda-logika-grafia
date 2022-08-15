@@ -1,0 +1,58 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+	<section class="content about-header position-relative" id="about-header">
+		<img src="{{base_url('/assets/images/insight-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<div class="d-flex justify-content-center" id="about-header-text" id="about-header-text">
+			<div class="d-flex align-items-center">
+				<div class="d-block">
+				<h1 class="text-white bet text-uppercase fs35r text-center d-block" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+					Insights
+				</h1>
+				<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
+					we present to you many technology informations to support your mobilization.<br />From transportation, information, communication, medical to construction,<br />as well as other information to add more of your knowledges..
+				</p>
+				</div>
+			</div>
+		</div>
+		<aside class="page-title position-absolute bottom-0 end-0" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="300">
+			<div class="position-relative end-0 text-secondary">
+				<h3 class="bet fs40r ms-auto me-5 pe-5">04 /</h3>
+				<h3 class="bet fs60r ms-auto text-uppercase rotate d-inline-block position-absolute top-0" style="right:-120px">insight</h3>
+			</div>
+		</aside>
+	</section>
+	<section class="content short-story pb-5 mb-5">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-9">
+					<div class="row">
+					{% for item in posts %}
+					<article class="text-white col-6 insight">
+						<img src="{{base_url('media/article/thumb_' ~ item.cover)}}" class="img-fluid w-100" />
+						<div class="meta fs08r py-2">
+							<span class="text-secondary text-uppercase me-2">{{item.category}}</span> {{item.date|date('d/m/Y')}}
+						</div>
+						<h2 class="fs12r">{{item.title}}</h2>
+						<a href="{{base_url('detail/' ~ item.slug)}}" class="linkin text-uppercase fs08r">more</a>
+					</article>						
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+</style>
+<script>
+		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
+        window.addEventListener('load', (event) => { Sized(); });
+        window.addEventListener('resize', (event) => { Sized(); });
+        document.querySelector(".main-menu li a").classList.remove('active');
+        document.querySelector(".insight").classList.add('active');
+</script>
+{% endblock %}

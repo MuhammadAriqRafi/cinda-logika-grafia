@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'Betatron';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/betatron/betatron.eot');
+    src: local(''),
+        url('../fonts/betatron/betatron.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/betatron/betatron.woff2') format('woff2'),
+        url('../fonts/betatron/betatron.woff') format('woff'),
+        url('../fonts/betatron/betatron.ttf') format('truetype'),
+        url('../fonts/betatron/betatron.svg#Betatron-Regular') format('svg');
+}
+@font-face {
+    font-family: 'Kallisto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/kallisto/kallisto_medium.eot');
+    src: local(''),
+        url('../fonts/kallisto/kallisto_medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/kallisto/kallisto_medium.woff2') format('woff2'),
+        url('../fonts/kallisto/kallisto_medium.woff') format('woff'),
+        url('../fonts/kallisto/kallisto_medium.ttf') format('truetype'),
+        url('../fonts/kallisto/kallisto_medium.svg#Kallisto-Medium') format('svg');
+}
+@font-face {
+    font-family: 'Kallisto';
+    font-style: bold;
+    font-weight: 700;
+    src: url('../fonts/kallisto/kallisto_bold.eot');
+    src: local(''),
+        url('../fonts/kallisto/kallisto_bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/kallisto/kallisto_bold.woff2') format('woff2'),
+        url('../fonts/kallisto/kallisto_bold.woff') format('woff'),
+        url('../fonts/kallisto/kallisto_bold.ttf') format('truetype'),
+        url('../fonts/kallisto/kallisto_bold.svg#Kallisto-Bold') format('svg');
+}
+@font-face {
+    font-family: 'Whyteinktrap';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/whyteinktrap/whyteinktrap.ttf');
+    src: local(''),
+        url('../fonts/whyteinktrap/whyteinktrap.ttf') format('truetype');
+}
+
+html, body {
+    font-family: "Whyteinktrap", sans-serif ;
+}
+.wit {
+    font-family: "Whyteinktrap", sans-serif ;
+}
+.kal {
+    font-family: "Kallisto", sans-serif;
+}
+.bet {
+    font-family: "Betatron", sans-serif;
+}

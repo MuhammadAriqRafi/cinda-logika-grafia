@@ -1,0 +1,93 @@
+{% extends "layouts/frontend.twig" %}
+
+{% block content %}
+	<section class="content about-header position-relative" id="about-header">
+		<img src="{{base_url('/assets/images/about-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100" />
+		<div class="d-flex justify-content-center" id="about-header-text">
+			<div class="d-flex align-items-center">
+				<div class="d-block">
+					<h1 class="text-white bet text-uppercase fs35r text-center d-block" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+						you are entering the next<br />level of information</br />technology world
+					</h1>
+					<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
+						We are now living in the digital information technology era, we replaced every elements<br />
+						of our living with technology.  Therefore cinda logika grafia offers you the components to live,<br />
+						to work, to be productive , to change the world by focusing in the innovation of technology<br />
+						trends such as artificial intelegence(ai), machine learning, big data cloud computing.
+					</p>
+				</div>
+			</div>
+		</div>
+		<aside class="page-title position-absolute bottom-0 end-0" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+			<div class="position-relative end-0 text-secondary">
+				<h3 class="bet fs40r ms-auto me-5 pe-5">02 /</h3>
+				<h3 class="bet fs60r ms-auto text-uppercase rotate d-inline-block position-absolute top-0" style="right:-100px">about</h3>
+			</div>
+		</aside>
+	</section>
+	<section class="content short-story">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-12 col-md-5">
+					<img src="{{base_url('/assets/images/short-bg.png')}}" class="bg-aneh top-0 img-fluid w-100"/>
+				</div>
+				<div class="col-12 col-md-5 d-flex">
+					<div class="align-self-center ps-5 position-relative">
+						<h2 class="kal text-white text-uppercase blue-line fs25r">short story</h2>
+						<p class="text-white fs09r">Cinda Logika Grafia is a information technology company that provides solutions of problems and needs in the process of business. created by young professionals that have years of experiences in the world of technological information, CLG  committed to be one of the best technological  information and industry 4.0 provider as well as actively being part in developing the prcess. therefor clg presents the first services of sofware development, integrated system, digital agency and it infrastructure by analizing deeper and provides solutions with integrity, efectivity and eficiency.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content vision py-5 position-relative mb-5">
+		<img src="{{base_url('/assets/images/blue-line.png')}}" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col col-md-10">
+					<div class="align-self-center ps-5 position-relative">
+						<h2 class="kal text-white text-uppercase blue-line fs25r mb-4">vision and mission</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-md-center">
+				<div class="col-12 col-md-8">
+					<div class="row mb-4 position-relative" style="overflow:hidden">
+						<img src="{{base_url('/assets/images/vision.png')}}" class="position-absolute top-0 bg-aneh start-0 img-fluid" style="width:60%" />
+						<div class="col col-md-7 ms-auto">
+							<div class="align-self-center position-relative">
+								<h2 class="kal text-white text-uppercase fs50r bolder translucent pt-0">vision</h2>
+								<p class="text-white fs09r">Become the pioneer of technological information  company based on research and innovation that  provides high quality integrated solutions as well as contributed positively to the whole ecosytem that  included.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row position-relative" style="overflow:hidden">
+						<img src="{{base_url('/assets/images/mission.png')}}" class="position-absolute top-0 bg-aneh end-0 img-fluid"  style="width:60%" />
+						<div class="col col-md-7">
+							<div class="align-self-center position-relative">
+								<h2 class="kal text-white text-uppercase fs50r bolder translucent">mission</h2>
+								<ul class="mission-list fs09r">
+									<li>To support human resources in technological information who  expertise in each technical specific fields but also has sense of  awarness ini humanity.</li>
+									<li>Focusing on researching of the technological information trend in the future such as artificial intelegent, Robotic learning, Big Data, cloud computing, internet, etc.</li>
+									<li>Developing many services/producs of technologial information that innovative, efective, reachable for small business to help them grow.</li>
+									<li>Cooperate with goverment, educational institutions, and industrial business to colaborate in providing solutions that based on integrated technology that giving positive impact to society.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
+        window.addEventListener('load', (event) => { Sized(); });
+        window.addEventListener('resize', (event) => { Sized(); });
+        document.querySelector(".main-menu li a").classList.remove('active');
+        document.querySelector(".about").classList.add('active');
+
+</script>
+{% endblock %}
