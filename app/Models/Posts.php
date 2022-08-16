@@ -67,11 +67,12 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
             ->countAllResults();
     }
 
-    public function fetchValidationRules(): array
+    public function fetchValidationRules($options = []): array
     {
         return $rules = [
             'title' => 'required',
-            'excerpt' => 'required',
+            'cover' => $options['cover'] ?? null . 'max_size[cover,1024]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]',
+            'category' => 'required',
             'content' => 'required',
         ];
     }

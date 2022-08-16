@@ -22,28 +22,6 @@
         let baseUrl = '<?= base_url(); ?>';
     </script>
 
-    <!--Inline Custom Styling -->
-    <style>
-        ul.pagination {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            border: 1px solid;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        ul.pagination>li:hover {
-            color: #FBBD23;
-        }
-
-        input[type="search"] {
-            padding: 12px;
-            border: 1px solid #2A303C;
-            border-radius: 8px;
-        }
-    </style>
-
     <?= $this->renderSection('css'); ?>
 </head>
 
@@ -96,7 +74,7 @@
 
                 <!-- Body -->
                 <main class="w-full pt-8 sm:pt-4 p-4 pr-6 mb-8 overflow-x-hidden overflow-y-auto">
-                    <div class="mb-10 flex justify-between items-center">
+                    <div class="mb-14 flex justify-between items-center">
                         <h1 class="text-2xl sm:text-4xl font-bold"><?= $title ?? 'Untitled'; ?></h1>
                         <?= $this->renderSection('toolbar'); ?>
                     </div>
