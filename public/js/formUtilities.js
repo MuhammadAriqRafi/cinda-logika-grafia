@@ -53,7 +53,7 @@ const fileInputComponent = (title, name) => {
     return `
         <div class="form-control mb-4" onclick="resetInvalidClass(this)">
             <span class="label-text font-bold">${capitalizedTitleFirstLetter}</span>
-            <img src="#" height="100" class="img-preview my-2">
+            <img src="#" height="100" class="img-preview rounded-lg my-2">
             <input type="file" class="input input-bordered input-neutral focus:input-primary w-full mt-2 mb-3" name="${lowerCasedName}" onchange="previewImage(this)" accept="image/jpg, image/jpeg, image/png" />
             <div id="error-${lowerCasedName}" class="badge badge-error hidden"></div>
         </div>

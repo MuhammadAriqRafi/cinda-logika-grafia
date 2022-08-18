@@ -36,11 +36,25 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
     protected $beforeInsert   = [];
     protected $beforeUpdate   = [];
 
+    // Constants
+    public const IMAGEPATH = 'media/article/';
+
+    private function generateCoverImageUrl($coverImageName)
+    {
+        return base_url() . '/' . self::IMAGEPATH . $coverImageName;
+    }
+
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
-        return $this->select('id, title, category, excerpt')
+        $posts = $this->select('id, title, category, excerpt, cover')
             ->orderBy($orderColumn, $orderDirection)
             ->findAll($length, $start);
+
+        foreach ($posts as $key => $post) {
+            $posts[$key]['cover'] = $this->generateCoverImageUrl($posts[$key]['cover']);
+        }
+
+        return $posts;
     }
 
     public function getTotalRecords(): int
@@ -50,12 +64,18 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
 
     public function getRecordSearch($search, $start, $length, $orderColumn, $orderDirection): array
     {
-        return $this->select('id, title, category, excerpt')
+        $posts = $this->select('id, title, category, excerpt, cover')
             ->orderBy($orderColumn, $orderDirection)
             ->like('title', $search)
             ->orLike('category', $search)
             ->orLike('excerpt', $search)
             ->findAll($length, $start);
+
+        foreach ($posts as $key => $post) {
+            $posts[$key]['cover'] = $this->generateCoverImageUrl($posts[$key]['cover']);
+        }
+
+        return $posts;
     }
 
     public function getTotalRecordSearch($search): int

@@ -66,7 +66,7 @@ class PostController extends CRUDController
             'date' => date('Y-m-d h:i:s'),
             'category' => $this->request->getVar('category'),
             'file' => $this->request->getFile('cover'),
-            'file_path' => 'img/',
+            'file_path' => Posts::IMAGEPATH,
             'file_context' => 'post',
             'validation_options' => [
                 'cover' => 'uploaded[cover]|'
@@ -102,11 +102,10 @@ class PostController extends CRUDController
             'category' => $this->request->getVar('category'),
         ];
 
-        // TODO: Options for image validation when updating
         if ($file->getError() != 4) {
             $file = [
                 'file' => $file,
-                'file_path' => 'img/',
+                'file_path' => Posts::IMAGEPATH,
                 'file_context' => 'post',
                 'file_old' => $oldImage,
             ];
@@ -124,7 +123,7 @@ class PostController extends CRUDController
 
         $data = [
             'file_old' => $oldImage,
-            'file_path' => 'img/'
+            'file_path' => Posts::IMAGEPATH
         ];
 
         $this->setData($data);

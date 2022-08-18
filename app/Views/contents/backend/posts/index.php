@@ -23,17 +23,18 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('toolbar'); ?>
-<label for="postModal" class="btn btn-primary modal-button" onclick="create()">Tambah Data</label>
+<label for="postModal" class="btn btn-primary modal-button rounded-lg" onclick="create()">Tambah Data</label>
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
 <table class="table table-zebra w-full" id="postTable">
     <thead>
         <tr>
-            <td class="w-4/12">Title</td>
-            <td class="w-2/12">Category</td>
-            <td class="w-4/12">Excerpt</td>
-            <td class="w-2/12">Action</td>
+            <td>Cover</td>
+            <td>Title</td>
+            <td>Category</td>
+            <td>Excerpt</td>
+            <td>Action</td>
         </tr>
     </thead>
 </table>
@@ -139,7 +140,7 @@
                     $('#summernote').summernote('code', data[inputName]);
                     break;
                 case 'cover':
-                    $('.img-preview').attr('src', baseUrl + `/img/${data[inputName]}`);
+                    $('.img-preview').attr('src', baseUrl + `/media/article/${data[inputName]}`);
                     break;
                 default:
                     $(`input[name="${inputName}"]`).val(data[inputName])
@@ -248,8 +249,20 @@
 
     $(document).ready(function() {
         const table = createDataTable(tableId, siteUrl + '<?= $indexUrl ?>', [{
+                data: 'cover',
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    return `<img src="${data}" class="rounded-lg" width="150" alt="${row.title}">`;
+                }
+            },
+            {
                 name: 'title',
-                data: 'title'
+                data: 'title',
+
+                render: function(data) {
+                    return `<textarea disabled class="w-full text-base bg-transparent border-0 outline-0 resize-none">${data}</textarea>`;
+                }
             },
             {
                 name: 'category',
@@ -265,6 +278,8 @@
             },
             {
                 data: 'id',
+                orderable: false,
+                searchable: false,
                 render: function(data) {
                     return editDeleteBtn(data);
                 }
