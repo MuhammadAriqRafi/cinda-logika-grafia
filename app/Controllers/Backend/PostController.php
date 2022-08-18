@@ -41,6 +41,7 @@ class PostController extends CRUDController
             'destroyUrl' => '/backend/posts/destroy/',
             'updateUrl' => '/backend/posts/update/',
             'editUrl' => '/backend/posts/edit/',
+            'indexCategory' => '/backend/categories/index',
         ];
 
         return view('contents/backend/posts/index', $data);

@@ -10,9 +10,12 @@
 <input type="checkbox" class="modal-toggle" />
 <div id="postModal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
-        <h3 id="postModalLabel" class="font-bold text-2xl mb-10"></h3>
+        <div id="modalHeader" class="flex justify-between items-center mb-10">
+            <h3 id="postModalLabel" class="font-bold text-2xl"></h3>
+        </div>
 
         <form id="postForm" enctype="multipart/form-data"></form>
+        <div id="categoryContainer"></div>
 
         <div class="modal-action">
             <label class="btn" onclick="closeModal()">Batal</label>
@@ -23,7 +26,10 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('toolbar'); ?>
-<label for="postModal" class="btn btn-primary modal-button rounded-lg" onclick="create()">Tambah Data</label>
+<div class="btn-group">
+    <label for="postModal" class="btn btn-active modal-button rounded-lg" onclick="create()">Tambah Data</label>
+    <label for="postModal" class="btn modal-button rounded-lg" onclick="indexCategory()">Categories</label>
+</div>
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
@@ -47,11 +53,12 @@
     const modal = 'postModal';
     const modalLabel = 'postModalLabel';
     const formActionBtn = 'postFormActionBtn';
+    const categoryContainer = 'categoryContainer';
 
     // Helper
-    const setModalLabelAndModalActionBtnText = (context) => {
-        $(`#${modalLabel}`).text(`${context} Post`);
-        $(`#${formActionBtn}`).text(context);
+    const setModalLabelAndModalActionBtnText = (state, context = 'Post') => {
+        $(`#${modalLabel}`).text(`${state} ${context}`);
+        $(`#${formActionBtn}`).text(state);
     }
 
     const getFormCurrentActionState = () => {
@@ -149,12 +156,21 @@
         }
     }
 
-    // CRUD
+    const hideForm = () => {
+        $(`#${form}`).hide();
+    }
+
+    const showForm = () => {
+        $(`#${form}`).show();
+    }
+
+    // CRUD Post
     const create = () => {
         const url = siteUrl + '<?= $storeUrl ?>';
 
         setModalLabelAndModalActionBtnText('Tambah');
         setFormAction(url);
+        showForm();
         openModal();
     }
 
@@ -245,6 +261,47 @@
                 }
             });
         }
+    }
+
+    // Category Helper
+    // TODO: Create Category management
+    const getCategoryData = () => {
+        const url = siteUrl + '<?= $indexCategory ?>';
+        return fetch(url).then(response => response.json());
+    }
+
+    const renderAddCategoryBtn = () => {
+        $('#modalHeader').append(`<button class="btn" onclick="createCategory()">Tambah</button>`);
+    }
+
+    const hideFormActionBtn = () => {
+        $(`#${formActionBtn}`).hide();
+    }
+
+    async function renderCategory() {
+        let posts = await getCategoryData();
+        let categories = '';
+
+        posts.forEach(post => {
+            categories += `
+                <div class="flex justify-between items-center w-full">
+                    <p class="text-2xl">${post.name}</p>
+                    <button class="btn btn-error">Delete</button>
+                </div>
+            `
+        });
+
+        $(`#${categoryContainer}`).append(categories);
+    }
+
+    // CRUD Category
+    const indexCategory = () => {
+        hideForm();
+        hideFormActionBtn();
+        setModalLabelAndModalActionBtnText('Tambah', 'Category');
+        renderCategory();
+        renderAddCategoryBtn();
+        openModal();
     }
 
     $(document).ready(function() {

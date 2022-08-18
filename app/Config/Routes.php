@@ -34,6 +34,15 @@ $routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function (
         $routes->patch('(:any)', 'PostController::$1');
         $routes->delete('(:any)', 'PostController::$1');
     });
+
+    // Category
+    $routes->group('categories', function ($routes) {
+        $routes->get('/', 'CategoryController::index', ['as' => 'backend.categories.index']);
+        $routes->get('(:any)', 'CategoryController::$1');
+        $routes->post('(:any)', 'CategoryController::$1');
+        $routes->patch('(:any)', 'CategoryController::$1');
+        $routes->delete('(:any)', 'CategoryController::$1');
+    });
 });
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
