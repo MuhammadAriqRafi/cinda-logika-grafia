@@ -41,7 +41,12 @@ class PostController extends CRUDController
             'destroyUrl' => '/backend/posts/destroy/',
             'updateUrl' => '/backend/posts/update/',
             'editUrl' => '/backend/posts/edit/',
-            'indexCategory' => '/backend/categories/index',
+            'indexCategoryUrl' => '/backend/categories/index',
+            'ajaxIndexCategoryUrl' => '/backend/categories/ajaxIndex',
+            'storeCategoryUrl' => '/backend/categories/store',
+            'destroyCategoryUrl' => '/backend/categories/destroy/',
+            'updateCategoryUrl' => '/backend/categories/update/',
+            'editCategoryUrl' => '/backend/categories/edit/',
         ];
 
         return view('contents/backend/posts/index', $data);
@@ -55,6 +60,8 @@ class PostController extends CRUDController
     public function store()
     {
         $title = $this->request->getVar('title');
+        // $content = $this->cleanseString($this->request->getVar('content'));
+        // $excerpt = $this->generateExcerpt($content);
         $content = $this->cleanseString($this->request->getVar('content'));
         $excerpt = $this->generateExcerpt($content);
 
@@ -62,7 +69,7 @@ class PostController extends CRUDController
             'cover' => '',
             'title' => $title,
             'excerpt' => $excerpt,
-            'content' => $content,
+            'content' => $this->request->getVar('content'),
             'slug' => url_title($title, '-', true),
             'date' => date('Y-m-d h:i:s'),
             'category' => $this->request->getVar('category'),
@@ -88,6 +95,7 @@ class PostController extends CRUDController
     {
         $title = $this->request->getVar('title');
         $content = $this->cleanseString($this->request->getVar('content'));
+        // TODO: If excerpt has already three dots in the end, dont add another three dots
         $excerpt = $this->generateExcerpt($content);
         $file = $this->request->getFile('cover');
         $oldImage = $this->model->select('cover')
@@ -98,7 +106,7 @@ class PostController extends CRUDController
             'id' => $id,
             'title' => $title,
             'excerpt' => $excerpt,
-            'content' => $content,
+            'content' => $this->request->getVar('content'),
             'slug' => url_title($title, '-', true),
             'category' => $this->request->getVar('category'),
         ];

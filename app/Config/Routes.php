@@ -35,7 +35,7 @@ $routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function (
         $routes->delete('(:any)', 'PostController::$1');
     });
 
-    // Category
+    // Categories
     $routes->group('categories', function ($routes) {
         $routes->get('/', 'CategoryController::index', ['as' => 'backend.categories.index']);
         $routes->get('(:any)', 'CategoryController::$1');

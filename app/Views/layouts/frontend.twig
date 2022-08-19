@@ -6,39 +6,53 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#eeeeee"/>
 		<title>{{title}}</title>
-        <meta name="robots" content="max-image-preview:large" />
+		<meta name="robots" content="max-image-preview:large"/>
 		<link rel='dns-prefetch' href='//cdnjs.cloudflare.com'/>
-        <meta name="description" content="{{desc}}" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<meta name="description" content="{{desc}}"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css" integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6DSJSpIbRbi+Nn0WDPID9O7xB2Q==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 		<link rel="stylesheet" href="{{base_url('assets/css/fonts.css')}}" type="text/css"/>
 		<link rel="stylesheet" href="{{base_url('assets/css/styles.css?' ~ time)}}" type="text/css"/>
-        <link rel="canonical" href="{{base_url(uri_string)}}" />
-        <script type='application/ld+json'> { "@context": "http://www.schema.org", "@type": "Corporation", "name": "Cinda Logika Grafia", "url": "https://www.cindalogikagrafia.com/", "sameAs": [ "https://www.linkedin.com/company/cinda-logika-grafia", "https://www.instagram.com/cindalograf", "https://m.facebook.com/people/Cinda-Logika-Grafia/100077734862098/" ], "logo": "https://www.cindalogikagrafia.com/assets/img/logo-small.png", "image": "https://www.cindalogikagrafia.com", "description": "Delivering Integrated IT Solutions", "address": { "@type": "PostalAddress", "streetAddress": "Villa Citra 2 blok G1 #16, Jagabaya III, Sukabumi", "addressLocality": "Bandar Lampung", "addressRegion": "Lampung", "postalCode": "35113", "addressCountry": "Indonesia" }, "hasMap": "https://www.google.co.id/maps/place/Cinda+Logika+Grafia/@-5.4000339,105.2711996,15z/data=!4m2!3m1!1s0x0:0x9dea7af8c4985f82?sa=X&ved=2ahUKEwi3xPCf28L5AhVZ6nMBHWtgCy8Q_BJ6BAg3EAU", "openingHours": "Mo 08:00-17:00 Tu 08:00-17:00 We 08:00-17:00 Th 08:00-17:00 Fr 08:30-01:00 Sa 08:00-14:00" } </script>
+		<link rel="canonical" href="{{base_url(uri_string)}}"/>
+		<script type='application/ld+json'>
+			{ "@context": "http://www.schema.org", "@type": "Corporation", "name": "Cinda Logika Grafia", "url": "https://www.cindalogikagrafia.com/", "sameAs": [ "https://www.linkedin.com/company/cinda-logika-grafia", "https://www.instagram.com/cindalograf", "https://m.facebook.com/people/Cinda-Logika-Grafia/100077734862098/" ], "logo": "https://www.cindalogikagrafia.com/assets/img/logo-small.png", "image": "https://www.cindalogikagrafia.com", "description": "Delivering Integrated IT Solutions", "address": { "@type": "PostalAddress", "streetAddress": "Villa Citra 2 blok G1 #16, Jagabaya III, Sukabumi", "addressLocality": "Bandar Lampung", "addressRegion": "Lampung", "postalCode": "35113", "addressCountry": "Indonesia" }, "hasMap": "https://www.google.co.id/maps/place/Cinda+Logika+Grafia/@-5.4000339,105.2711996,15z/data=!4m2!3m1!1s0x0:0x9dea7af8c4985f82?sa=X&ved=2ahUKEwi3xPCf28L5AhVZ6nMBHWtgCy8Q_BJ6BAg3EAU", "openingHours": "Mo 08:00-17:00 Tu 08:00-17:00 We 08:00-17:00 Th 08:00-17:00 Fr 08:30-01:00 Sa 08:00-14:00" }
+		</script>
 	</head>
-	<body>
-        <div id="loader-wrapper"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
-		<div id="page" class="site-page">
-            {% block background %}{% endblock %}
+	<body style="overflow-x: hidden;">
+		<div id="loader-wrapper">
+			<div class="lds-grid">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<div id="page" class="site-page"> {% block background %}{% endblock %}
 			<div id="wrapper" class="site-wrapper">
 				<header class="site-header pt-md-4 position-absolute w-100">
 					{% include "partials/header.twig" %}
 				</header>
-				<section class="site-content">
-                    {% block content %}{% endblock %}
-				</section>
-				<footer class="site-footer {{sticky}}">
-					{% include "partials/footer.twig" %}
-				</footer>
+				<section class="site-content"> {% block content %}{% endblock %}
+					</section>
+					<footer class="site-footer {{sticky}}">
+						{% include "partials/footer.twig" %}
+					</footer>
+				</div>
 			</div>
-		</div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js" integrity="sha512-8cU710tp3iH9RniUh6fq5zJsGnjLzOWLWdZqBMLtqaoZUA6AWIE34lwMB3ipUNiTBP5jEZKY95SfbNnQ8cCKvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js" integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha512-2cbsQGdowNDPcKuoBd2bCcsJky87Mv0LEtD/nunJUgk6MOYTgVMGihS/xCEghNf04DPhNiJ4DZw5BxDd1uyOdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script> AOS.init(); </script>
-		<script type="text/javascript" src="{{base_url('assets/js/scripts.js')}}"></script>
-        {% block scripts %}{% endblock %}
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js" integrity="sha512-8cU710tp3iH9RniUh6fq5zJsGnjLzOWLWdZqBMLtqaoZUA6AWIE34lwMB3ipUNiTBP5jEZKY95SfbNnQ8cCKvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js" integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha512-2cbsQGdowNDPcKuoBd2bCcsJky87Mv0LEtD/nunJUgk6MOYTgVMGihS/xCEghNf04DPhNiJ4DZw5BxDd1uyOdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<script>
+				AOS.init();
+			</script>
+			<script type="text/javascript" src="{{base_url('assets/js/scripts.js')}}"></script>
+			{% block scripts %}{% endblock %}
 		</body>
 	</html>
-{% endapply %}
+	{% endapply %}

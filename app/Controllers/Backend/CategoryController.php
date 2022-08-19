@@ -13,7 +13,40 @@ class CategoryController extends CRUDController
 
     public function index()
     {
-        $categories = $this->model->findAll();
-        return $this->response->setJSON($categories);
+        return parent::index();
+    }
+
+    public function ajaxIndex()
+    {
+        $response = $this->model->select('id,name')->findAll();
+        return $this->response->setJSON($response);
+    }
+
+    public function store()
+    {
+        $data = [
+            'name' => $this->request->getVar('name'),
+            'created_at' => round(microtime(true) * 1000)
+        ];
+
+        $this->setData($data);
+        return parent::store();
+    }
+
+    public function edit($id = null)
+    {
+        $this->setData(['selected_fields' => 'name']);
+        return parent::edit($id);
+    }
+
+    public function update($id = null)
+    {
+        $this->setData(['name' => $this->request->getVar('name')]);
+        return parent::update($id);
+    }
+
+    public function destroy($id = null)
+    {
+        return parent::destroy($id);
     }
 }
