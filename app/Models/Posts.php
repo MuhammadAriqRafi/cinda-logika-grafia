@@ -16,7 +16,7 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['date', 'title', 'slug', 'excerpt', 'content', 'category', 'cover'];
+    protected $allowedFields    = ['date', 'title', 'slug', 'excerpt', 'content', 'category_id', 'cover'];
 
     // Dates
     protected $useTimestamps = false;
@@ -38,6 +38,10 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
 
     // Constants
     public const IMAGEPATH = 'media/article/';
+    public const THUMBSIZE = [
+        'width' => 420,
+        'height' => 282,
+    ];
 
     private function generateCoverImageUrl($coverImageName)
     {
@@ -46,7 +50,8 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
 
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
-        $posts = $this->select('id, title, category, excerpt, cover')
+        $posts = $this->select('posts.id, posts.title, categories.name as category, posts.excerpt, posts.cover')
+            ->join('categories', 'posts.category_id = categories.id')
             ->orderBy($orderColumn, $orderDirection)
             ->findAll($length, $start);
 
@@ -64,10 +69,11 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
 
     public function getRecordSearch($search, $start, $length, $orderColumn, $orderDirection): array
     {
-        $posts = $this->select('id, title, category, excerpt, cover')
+        $posts = $this->select('posts.id, posts.title, categories.name as category, posts.excerpt, posts.cover')
+            ->join('categories', 'posts.category_id = categories.id')
             ->orderBy($orderColumn, $orderDirection)
             ->like('title', $search)
-            ->orLike('category', $search)
+            ->orLike('category_id', $search)
             ->orLike('excerpt', $search)
             ->findAll($length, $start);
 
@@ -80,9 +86,9 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
 
     public function getTotalRecordSearch($search): int
     {
-        return $this->select('id, title, category, excerpt')
+        return $this->select('id, title, category_id, excerpt')
             ->like('title', $search)
-            ->orLike('category', $search)
+            ->orLike('category_id', $search)
             ->orLike('excerpt', $search)
             ->countAllResults();
     }
@@ -92,7 +98,7 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
         return $rules = [
             'title' => 'required',
             'cover' => $options['cover'] ?? null . 'max_size[cover,1024]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]',
-            'category' => 'required',
+            'category_id' => 'required',
             'content' => 'required',
         ];
     }

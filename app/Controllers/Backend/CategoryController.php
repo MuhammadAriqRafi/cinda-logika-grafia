@@ -41,7 +41,12 @@ class CategoryController extends CRUDController
 
     public function update($id = null)
     {
-        $this->setData(['name' => $this->request->getVar('name')]);
+        $data = [
+            'id' => $id,
+            'name' => $this->request->getVar('name')
+        ];
+
+        $this->setData($data);
         return parent::update($id);
     }
 

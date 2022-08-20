@@ -135,7 +135,7 @@
 
         $(`#${form}`).append(textInputComponent('Title', 'title', 'text', 'autofocus'));
         $(`#${form}`).append(fileInputComponent('Cover', 'cover'));
-        $(`#${form}`).append(dropdownComponent('Category', 'category', categories));
+        $(`#${form}`).append(dropdownComponent('Category', 'category_id', categories));
         $(`#${form}`).append(textareaComponent('Content', 'content', true));
 
         // FIXME: If user wants to add image in summernote, the default modal covers the entire screen, need fixing
@@ -162,7 +162,7 @@
     const populateForm = (data) => {
         for (const inputName in data) {
             switch (inputName) {
-                case 'excerpt':
+                case 'content':
                     $('#summernote').summernote('code', data[inputName]);
                     break;
                 case 'cover':
@@ -246,7 +246,7 @@
                 hideCategoryFormBackBtn();
                 setFormAction(siteUrl + '<?= $updateUrl ?>' + id);
                 populateForm(response);
-                setSelectedCategoryDropdown(response.category);
+                setSelectedCategoryDropdown(response.category_id);
                 showForm();
                 openModal();
             }
@@ -444,7 +444,7 @@
     }
 
     const storeCategory = (data) => {
-        const url = siteUrl + '<?= $storeCategoryUrl ?>';
+        const url = getFormAction();
 
         $.ajax({
             type: "POST",
@@ -459,6 +459,7 @@
                     reloadDatatable(categoryTable);
                     showCategoryTable();
                     showCategoryFormCreateBtn();
+                    hideCategoryFormBackBtn();
                     hideForm();
                 }
             }

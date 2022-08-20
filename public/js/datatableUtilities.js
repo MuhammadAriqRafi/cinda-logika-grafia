@@ -11,6 +11,9 @@ const createDataTable = (id, url, options) => {
         ],
         ajax: {
             url: url,
+            error: function(error) {
+                alert(`Sorry, we got ${error.statusText}`);
+            },
             complete: function() {
                 stylingDatatable(id);
             }

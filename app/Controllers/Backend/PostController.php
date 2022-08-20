@@ -60,22 +60,22 @@ class PostController extends CRUDController
     public function store()
     {
         $title = $this->request->getVar('title');
-        // $content = $this->cleanseString($this->request->getVar('content'));
-        // $excerpt = $this->generateExcerpt($content);
-        $content = $this->cleanseString($this->request->getVar('content'));
+        $rawContent = $this->request->getVar('content');
+        $content = $this->cleanseString($rawContent);
         $excerpt = $this->generateExcerpt($content);
 
         $data = [
             'cover' => '',
             'title' => $title,
             'excerpt' => $excerpt,
-            'content' => $this->request->getVar('content'),
+            'content' => $rawContent,
             'slug' => url_title($title, '-', true),
             'date' => date('Y-m-d h:i:s'),
-            'category' => $this->request->getVar('category'),
+            'category_id' => $this->request->getVar('category_id'),
             'file' => $this->request->getFile('cover'),
             'file_path' => Posts::IMAGEPATH,
             'file_context' => 'post',
+            'generate_file_size_to' => 'thumb',
             'validation_options' => [
                 'cover' => 'uploaded[cover]|'
             ]
@@ -87,15 +87,15 @@ class PostController extends CRUDController
 
     public function edit($id = null)
     {
-        $this->setData(['selected_fields' => 'title, category, excerpt, cover']);
+        $this->setData(['selected_fields' => 'title, category_id, content, cover']);
         return parent::edit($id);
     }
 
     public function update($id = null)
     {
         $title = $this->request->getVar('title');
-        $content = $this->cleanseString($this->request->getVar('content'));
-        // TODO: If excerpt has already three dots in the end, dont add another three dots
+        $rawContent = $this->request->getVar('content');
+        $content = $this->cleanseString($rawContent);
         $excerpt = $this->generateExcerpt($content);
         $file = $this->request->getFile('cover');
         $oldImage = $this->model->select('cover')
@@ -106,9 +106,9 @@ class PostController extends CRUDController
             'id' => $id,
             'title' => $title,
             'excerpt' => $excerpt,
-            'content' => $this->request->getVar('content'),
+            'content' => $rawContent,
             'slug' => url_title($title, '-', true),
-            'category' => $this->request->getVar('category'),
+            'category_id' => $this->request->getVar('category_id'),
         ];
 
         if ($file->getError() != 4) {
@@ -135,6 +135,7 @@ class PostController extends CRUDController
             'file_path' => Posts::IMAGEPATH
         ];
 
+        // TODO: Also delete thumb image
         $this->setData($data);
         return parent::destroy($id);
     }

@@ -3,7 +3,9 @@
 namespace App\Controllers\Backend;
 
 use App\Controllers\BaseController;
+use App\Models\Posts;
 use Config\Services;
+use PhpParser\Node\Expr\AssignOp\Pow;
 
 class CRUDController extends BaseController
 {
@@ -39,21 +41,34 @@ class CRUDController extends BaseController
         return $validations_options;
     }
 
-    private function isFileAttached(): bool
+    private function getGenerateFileSizeTo()
+    {
+        $generate_file_size_to = $this->data['generate_file_size_to'];
+        $this->removeGenerateFileSizeToFromArrayData();
+        return $generate_file_size_to;
+    }
+
+    private function isFileSetInArrayData(): bool
     {
         if (array_key_exists('file', $this->data) || array_key_exists('file_old', $this->data)) return true;
         return false;
     }
 
-    private function isSelectedFields(): bool
+    private function isSelectedFieldsSetInArrayData(): bool
     {
         if (array_key_exists('selected_fields', $this->data)) return true;
         return false;
     }
 
-    private function isValidationOptions(): bool
+    private function isValidationOptionsSetInArrayData(): bool
     {
         if (array_key_exists('validation_options', $this->data)) return true;
+        return false;
+    }
+
+    private function isGenerateFileSizeToSetInArrayData(): bool
+    {
+        if (array_key_exists('generate_file_size_to', $this->data)) return true;
         return false;
     }
 
@@ -88,7 +103,8 @@ class CRUDController extends BaseController
         $file = $this->data['file'];
         $path = $this->data['file_path'];
         $context = $this->data['file_context'];
-        $storedFileName = $this->generateFileName($context, $file->guessExtension());
+        $extension = $file->guessExtension();
+        $storedFileName = $this->generateFileName($context, $extension);
 
         if ($file->move($path, $storedFileName)) {
             $this->data[array_key_first($this->data)] = $storedFileName;
@@ -102,14 +118,36 @@ class CRUDController extends BaseController
     {
         $path = $this->data['file_path'];
         $oldFileName = $this->data['file_old'];
+        $oldThumbFileName = 'thumb_' . $this->data['file_old'];
 
         try {
             unlink($path . $oldFileName);
+            if (file_exists($path . $oldThumbFileName)) {
+                unlink($path . $oldThumbFileName);
+            }
         } catch (\Throwable $th) {
             return false;
         }
 
         return true;
+    }
+
+    private function generateFileSizeTo($size): bool
+    {
+        $thumbSize = Posts::THUMBSIZE;
+        $imagePath = Posts::IMAGEPATH;
+        $imageLib = Services::image();
+        $uploadedFileName = $this->data[array_key_first($this->data)];
+
+        switch ($size) {
+            case 'thumb':
+                $imageLib->withFile($imagePath . $uploadedFileName)
+                    ->fit($thumbSize['width'], $thumbSize['height'], 'center')
+                    ->save($imagePath . 'thumb_' . $uploadedFileName);
+                return true;
+            default:
+                return false;
+        }
     }
 
     private function removeFileFromArrayData(): void
@@ -128,6 +166,11 @@ class CRUDController extends BaseController
     private function removeValidationOptionsFromArrayData(): void
     {
         unset($this->data['validation_options']);
+    }
+
+    private function removeGenerateFileSizeToFromArrayData(): void
+    {
+        unset($this->data['generate_file_size_to']);
     }
 
     // CRUD
@@ -174,14 +217,15 @@ class CRUDController extends BaseController
 
     protected function store()
     {
-        $rules = $this->isValidationOptions() ? $this->model->fetchValidationRules($this->getValidationOptions()) : $this->model->fetchValidationRules();
+        $rules = $this->isValidationOptionsSetInArrayData() ? $this->model->fetchValidationRules($this->getValidationOptions()) : $this->model->fetchValidationRules();
         if (!$this->validate($rules)) {
             return $this->response->setJSON($this->generateErrorMessageFrom($rules));
         }
 
-        if ($this->isFileAttached()) {
+        if ($this->isFileSetInArrayData()) {
             $this->storeFile();
             $this->removeFileFromArrayData();
+            if ($this->isGenerateFileSizeToSetInArrayData()) $this->generateFileSizeTo($this->getGenerateFileSizeTo());
         }
 
         $response = [
@@ -200,7 +244,7 @@ class CRUDController extends BaseController
 
     protected function edit($id = null)
     {
-        if ($this->isSelectedFields()) {
+        if ($this->isSelectedFieldsSetInArrayData()) {
             $post = $this->model->select($this->getSelectedFields())->find($id);
             return $this->response->setJSON($post);
         };
@@ -215,7 +259,7 @@ class CRUDController extends BaseController
             return $this->response->setJSON($this->generateErrorMessageFrom($rules));
         }
 
-        if ($this->isFileAttached()) {
+        if ($this->isFileSetInArrayData()) {
             $this->deletefile();
             $this->storeFile();
             $this->removeFileFromArrayData();
@@ -242,7 +286,7 @@ class CRUDController extends BaseController
             'message' => $this->getModelName() . ' berhasil dihapus'
         ];
 
-        if ($this->isFileAttached()) {
+        if ($this->isFileSetInArrayData()) {
             $this->deleteFile();
             $this->removeFileFromArrayData();
         }
