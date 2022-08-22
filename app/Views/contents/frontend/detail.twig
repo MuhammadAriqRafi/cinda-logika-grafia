@@ -2,7 +2,7 @@
 
 {% block content %}
 	<section class="content about-header position-relative" id="about-header" style="max-height:100vh;overflow:hidden;">
-		<img src="{{base_url('/media/article/' ~ post.cover)}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<img src="{{base_url('/media/article/' ~ post.cover)}}" id="about-header-image" class="position-absolute top-0 bg-aneh img-fluid w-100"/>
 		<div class="d-flex justify-content-center" id="about-header-text" style="background-color: rgba(0,0,0,.5)">
 			<div class="d-flex align-items-center w-50">
 				<div class="d-block">
@@ -33,29 +33,36 @@
 		</div>
 	</section>
 	<section class="content vision py-5 position-relative mb-5">
-        <div class="container">
-            <div class="row">
-                {% for item in posts %}
+		<div class="container">
+			<div class="row">
+				{% for item in posts %}
 					<article class="text-white col">
-						<img src="{{base_url('media/article/thumb_' ~ item.cover)}}" class="img-fluid w-100" />
+						<img src="{{base_url('media/article/thumb_' ~ item.cover)}}" class="img-fluid w-100"/>
 						<div class="meta fs08r py-2">
-							<span class="text-secondary text-uppercase me-2">{{item.category}}</span> {{item.date|date('d/m/Y')}}
+							<span class="text-secondary text-uppercase me-2">{{item.category}}</span>
+							{{item.date|date('d/m/Y')}}
 						</div>
 						<h2 class="fs12r">{{item.title}}</h2>
 						<a href="{{base_url('detail/' ~ item.slug)}}" class="linkin text-uppercase fs08r">more</a>
-					</article>						
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+					</article>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 {% endblock %}
 
 {% block scripts %}
 	<script>
-		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
-        window.addEventListener('load', (event) => { Sized(); });
-        window.addEventListener('resize', (event) => { Sized(); });
-        document.querySelector(".main-menu li a").classList.remove('active');
-        document.querySelector(".insight").classList.add('active');
+		let Sized = function () {
+document.querySelector('#about-header-text').style.height = '100vh';
+}
+window.addEventListener('load', (event) => {
+Sized();
+});
+window.addEventListener('resize', (event) => {
+Sized();
+});
+document.querySelector(".main-menu li a").classList.remove('active');
+document.querySelector(".insight").classList.add('active');
 	</script>
 {% endblock %}

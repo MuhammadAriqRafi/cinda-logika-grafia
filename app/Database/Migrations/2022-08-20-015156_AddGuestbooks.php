@@ -35,8 +35,7 @@ class AddGuestbooks extends Migration
                 'type' => 'TEXT',
             ],
             'created_at' => [
-                'type' => 'INT',
-                'constraint' => 11,
+                'type' => 'BIGINT',
             ],
             'status' => [
                 'type' => 'ENUM',

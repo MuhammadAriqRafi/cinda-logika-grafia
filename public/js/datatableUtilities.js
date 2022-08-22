@@ -27,8 +27,8 @@ const createDataTable = (id, url, options) => {
 
 const editDeleteBtn = (id = null) => {
     return `
-        <button class="btn btn-sm btn-secondary" onclick="edit('${id}')">Edit</button>
-        <button class="btn btn-sm btn-error" onclick="destroy('${id}')">Delete</button>
+        <button class="btn btn-sm btn-secondary" onclick="edit(${id})">Edit</button>
+        <button class="btn btn-sm btn-error" onclick="destroy(${id})">Delete</button>
     `;
 }
 

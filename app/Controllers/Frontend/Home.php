@@ -32,6 +32,7 @@ class Home extends BaseController
     {
         $this->data['title'] = "Contact Us | " . $this->data['sitename'];
         $this->data['desc'] = "Let us know what your craziest dream are, and we will do our best to make them come true.";
+        $this->data['storeGuestbookUrl'] = '/backend/guestbooks/store';
         return $this->twig->render("contents/frontend/contact", $this->data);
     }
 

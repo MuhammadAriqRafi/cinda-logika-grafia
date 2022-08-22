@@ -5,7 +5,6 @@ namespace App\Controllers\Backend;
 use App\Controllers\BaseController;
 use App\Models\Posts;
 use Config\Services;
-use PhpParser\Node\Expr\AssignOp\Pow;
 
 class CRUDController extends BaseController
 {
@@ -96,6 +95,11 @@ class CRUDController extends BaseController
         }
 
         return $data;
+    }
+
+    protected function generateCurrentEpochTime()
+    {
+        return round(microtime(true) * 1000);
     }
 
     private function storeFile(): bool
@@ -250,6 +254,24 @@ class CRUDController extends BaseController
         };
 
         return $this->response->setJSON($this->model->find($id));
+    }
+
+    protected function show($id = null)
+    {
+        $response = $this->model->find($id);
+
+        if ($this->isSelectedFieldsSetInArrayData()) {
+            $response = $this->model->select($this->getSelectedFields())->find($id);
+        };
+
+        if ($response) {
+            $response = array_merge($response, ['status' => true]);
+            return $this->response->setJSON($response);
+        }
+
+        $response['status'] = false;
+        $response['message'] = 'Sorry, seems like we have some problem';
+        return $this->response->setJSON($response);
     }
 
     protected function update()

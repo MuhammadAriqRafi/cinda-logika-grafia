@@ -43,6 +43,15 @@ $routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function (
         $routes->patch('(:any)', 'CategoryController::$1');
         $routes->delete('(:any)', 'CategoryController::$1');
     });
+
+    // Guestbooks
+    $routes->group('guestbooks', function ($routes) {
+        $routes->get('/', 'GuestbookController::index', ['as' => 'backend.guestbooks.index']);
+        $routes->get('(:any)', 'GuestbookController::$1');
+        $routes->post('(:any)', 'GuestbookController::$1');
+        $routes->patch('(:any)', 'GuestbookController::$1');
+        $routes->delete('(:any)', 'GuestbookController::$1');
+    });
 });
 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

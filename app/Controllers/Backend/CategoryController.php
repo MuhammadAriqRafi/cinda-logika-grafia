@@ -26,7 +26,7 @@ class CategoryController extends CRUDController
     {
         $data = [
             'name' => $this->request->getVar('name'),
-            'created_at' => round(microtime(true) * 1000)
+            'created_at' => $this->generateCurrentEpochTime()
         ];
 
         $this->setData($data);
