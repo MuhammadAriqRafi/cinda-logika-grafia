@@ -89,7 +89,7 @@
                 <label for="my-drawer-2" class="drawer-overlay"></label>
                 <ul class="menu p-4 pl-6 overflow-y-auto w-80 bg-base-100 text-base-content">
                     <a class="btn btn-ghost normal-case text-xl justify-start mb-4 h-fit py-4" href="<?= route_to('backend.dashboard.index'); ?>">
-                        <img src="<?= base_url('assets/images/logo.png') ?>" alt="">
+                        <img src="<?= base_url('assets/images/logo.png') ?>" alt="Cinda Logika Grafia">
                     </a>
                     <?= $this->include('layouts/backend/sidebar'); ?>
                     <div class="btn-group sm:hidden inline mt-auto mx-auto mb-2">

@@ -21,7 +21,7 @@ const textInputComponent = (title, name, type = 'text', options = '') => {
 
     return `
         <div class="form-control mb-4" onclick="resetInvalidClass(this)">
-            <span class="label-text font-bold">${capitalizedTitleFirstLetter}</span>
+            <span class="label-text font-medium">${capitalizedTitleFirstLetter}</span>
             <input type="${type}" ${options} class="input input-bordered input-neutral focus:input-primary w-full mt-2 mb-3" name="${lowerCasedName}" />
             <div id="error-${lowerCasedName}" class="badge badge-error hidden"></div>
         </div>
@@ -39,7 +39,7 @@ const textareaComponent = (title, name, summernote = false) => {
 
     return `
         <div class="form-control mb-4" onclick="resetInvalidClass(this)">
-            <span class="label-text font-bold mb-2">${capitalizedTitleFirstLetter}</span>
+            <span class="label-text font-medium mb-2">${capitalizedTitleFirstLetter}</span>
             <textarea ${attribute} name="${lowerCasedName}"></textarea>
             <div id="error-${lowerCasedName}" class="badge badge-error hidden mt-2"></div>
         </div>
@@ -52,7 +52,7 @@ const fileInputComponent = (title, name) => {
 
     return `
         <div class="form-control mb-4" onclick="resetInvalidClass(this)">
-            <span class="label-text font-bold">${capitalizedTitleFirstLetter}</span>
+            <span class="label-text font-medium">${capitalizedTitleFirstLetter}</span>
             <img src="#" height="100" class="img-preview rounded-lg my-3">
             <input type="file" class="text-sm text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-medium 
             file:bg-blue-50 file:text-blue-700 hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700" name="${lowerCasedName}" onchange="previewImage(this)" accept="image/jpg, image/jpeg, image/png" />
@@ -73,7 +73,7 @@ const dropdownComponent = (title, name, options) => {
 
     return `
         <div class="form-control mb-4" onclick="resetInvalidClass(this)">
-            <span class="label-text font-bold">${capitalizedTitleFirstLetter}</span>
+            <span class="label-text font-medium">${capitalizedTitleFirstLetter}</span>
             <select name="${lowerCasedName}" class="select select-bordered w-full max-w-xs mt-2 mb-3">
                 <option value="" hidden>-- Pilih ${capitalizedTitleFirstLetter} --</option>
                 ${optionList}

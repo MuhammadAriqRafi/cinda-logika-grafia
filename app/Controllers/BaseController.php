@@ -24,5 +24,6 @@ abstract class BaseController extends Controller
         $this->data['sitedesc'] = "Delivering Integrated IT Solutions";
         $this->data['time'] = time();
         $this->data['uri_string'] = uri_string();
+        session();
     }
 }

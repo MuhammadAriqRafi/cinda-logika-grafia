@@ -12,11 +12,6 @@ class PostController extends CRUDController
     }
 
     // Utilities
-    private function cleanseString($string): string
-    {
-        return trim(html_entity_decode(strip_tags($string)));
-    }
-
     private function generateExcerpt($string): string
     {
         $delimiter = ' ';

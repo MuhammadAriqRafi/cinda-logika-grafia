@@ -23,6 +23,10 @@ $routes->get('/detail/(:any)', 'Home::Detail/$1');
 
 // Backend Routes
 $routes->group('backend', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+    // Authetication
+    $routes->get('login', 'AuthController::index');
+    $routes->post('authenticate', 'AuthController::authenticate');
+
     // Dashboard
     $routes->get('/', 'PageController::index');
 

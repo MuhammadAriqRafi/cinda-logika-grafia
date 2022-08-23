@@ -21,6 +21,11 @@ class CRUDController extends BaseController
         $this->data = $data;
     }
 
+    protected function cleanseString($string): string
+    {
+        return trim(html_entity_decode(strip_tags($string)));
+    }
+
     private function getModelName(): string
     {
         return ucfirst($this->model->table);
