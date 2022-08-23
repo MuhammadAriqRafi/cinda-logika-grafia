@@ -136,7 +136,7 @@ class CRUDController extends BaseController
         return true;
     }
 
-    private function generateFileSizeTo($size): bool
+    private function generateFileSizeTo($size)
     {
         $thumbSize = Posts::THUMBSIZE;
         $imagePath = Posts::IMAGEPATH;
@@ -145,12 +145,16 @@ class CRUDController extends BaseController
 
         switch ($size) {
             case 'thumb':
-                $imageLib->withFile($imagePath . $uploadedFileName)
-                    ->fit($thumbSize['width'], $thumbSize['height'], 'center')
-                    ->save($imagePath . 'thumb_' . $uploadedFileName);
+                try {
+                    $imageLib->withFile($imagePath . $uploadedFileName)
+                        ->fit($thumbSize['width'], $thumbSize['height'], 'center')
+                        ->save($imagePath . 'thumb_' . $uploadedFileName);
+                } catch (\Throwable $th) {
+                    return 'Resize image failed, error message : ' . $th->getMessage();
+                }
                 return true;
             default:
-                return false;
+                return 'Resize size is unavailable';
         }
     }
 
@@ -226,16 +230,19 @@ class CRUDController extends BaseController
             return $this->response->setJSON($this->generateErrorMessageFrom($rules));
         }
 
-        if ($this->isFileSetInArrayData()) {
-            $this->storeFile();
-            $this->removeFileFromArrayData();
-            if ($this->isGenerateFileSizeToSetInArrayData()) $this->generateFileSizeTo($this->getGenerateFileSizeTo());
-        }
-
         $response = [
             'status' => true,
             'message' => $this->getModelName() . ' berhasil ditambahkan'
         ];
+
+        if ($this->isFileSetInArrayData()) {
+            $this->storeFile();
+            $this->removeFileFromArrayData();
+            if ($this->isGenerateFileSizeToSetInArrayData()) {
+                $isResizeError = $this->generateFileSizeTo($this->getGenerateFileSizeTo());
+                if (gettype($isResizeError) != 'boolean') $response['error'] = $isResizeError;
+            }
+        }
 
         if ($this->model->save($this->data)) {
             return $this->response->setJSON($response);
@@ -248,12 +255,20 @@ class CRUDController extends BaseController
 
     protected function edit($id = null)
     {
+        $response = $this->model->find($id);
+
         if ($this->isSelectedFieldsSetInArrayData()) {
-            $post = $this->model->select($this->getSelectedFields())->find($id);
-            return $this->response->setJSON($post);
+            $response = $this->model->select($this->getSelectedFields())->find($id);
         };
 
-        return $this->response->setJSON($this->model->find($id));
+        if ($response) {
+            $response = array_merge($response, ['status' => true]);
+            return $this->response->setJSON($response);
+        }
+
+        $response['status'] = false;
+        $response['message'] = 'Sorry, seems like we have some problem';
+        return $this->response->setJSON($response);
     }
 
     protected function show($id = null)

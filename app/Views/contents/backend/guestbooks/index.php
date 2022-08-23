@@ -4,7 +4,7 @@
 <input type="checkbox" class="modal-toggle" />
 <div id="guestbookModal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
-        <h3 id="guestbookDetailSubject" class="font-bold text-xl mb-4"></h3>
+        <h3 id="guestbookDetailSubject" class="font-bold text-2xl mb-6"></h3>
         <div class="flex justify-between mb-8">
             <div class="flex justify-between gap-x-4">
                 From :
@@ -17,7 +17,7 @@
         </div>
         <hr>
         <p id="guestbookDetailMessage" class="mt-6"></p>
-        <label id="guestbookDetailCancelBtn" class="btn btn-error mt-8" onclick="closeModal()">Batal</label>
+        <label id="guestbookDetailCancelBtn" class="btn btn-secondary mt-10" onclick="closeModal()">Tutup</label>
     </div>
 </div>
 <?= $this->endSection(); ?>

@@ -51,11 +51,6 @@ class GuestbookController extends CRUDController
         return $this->response->setJSON($response);
     }
 
-    public function destroy($id = null)
-    {
-        return parent::destroy($id);
-    }
-
     public function store()
     {
         $data = [
@@ -63,11 +58,16 @@ class GuestbookController extends CRUDController
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
             'phone' => $this->request->getVar('phone'),
-            'message'=> $this->request->getVar('message'),
+            'message' => $this->request->getVar('message'),
             'created_at' => $this->generateCurrentEpochTime()
         ];
 
         $this->setData($data);
         return parent::store();
+    }
+
+    public function destroy($id = null)
+    {
+        return parent::destroy($id);
     }
 }

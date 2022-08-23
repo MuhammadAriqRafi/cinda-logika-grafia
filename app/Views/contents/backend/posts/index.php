@@ -212,7 +212,8 @@
                 if (response.status) {
                     reloadDatatable(tableId);
                     resetForm(form);
-                    alert(response.message);
+                    if (response.error) alert(`${response.message}\n\n${response.error}`);
+                    else alert(response.message);
                 } else if (response.error_input) displayError(response.error_input);
             }
         });
@@ -240,15 +241,19 @@
             url: url,
             dataType: "json",
             success: function(response) {
-                setModalLabelAndModalActionBtnText('Ubah');
-                setFormCancelBtnAction('closeModal()');
-                hideCategoryFormCreateBtn();
-                hideCategoryFormBackBtn();
-                setFormAction(siteUrl + '<?= $updateUrl ?>' + id);
-                populateForm(response);
-                setSelectedCategoryDropdown(response.category_id);
-                showForm();
-                openModal();
+                if (response.status) {
+                    setModalLabelAndModalActionBtnText('Ubah');
+                    setFormCancelBtnAction('closeModal()');
+                    hideCategoryFormCreateBtn();
+                    hideCategoryFormBackBtn();
+                    setFormAction(siteUrl + '<?= $updateUrl ?>' + id);
+                    populateForm(response);
+                    setSelectedCategoryDropdown(response.category_id);
+                    showForm();
+                    openModal();
+                } else {
+                    alert(response.message);
+                }
             }
         });
     }

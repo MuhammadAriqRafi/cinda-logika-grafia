@@ -37,7 +37,7 @@
 			<div class="row">
 				{% for item in posts %}
 					<article class="text-white col">
-						<img src="{{base_url('media/article/thumb_' ~ item.cover)}}" class="img-fluid w-100"/>
+						<img src="{{item.cover}}" width="420" class="img-fluid"/>
 						<div class="meta fs08r py-2">
 							<span class="text-secondary text-uppercase me-2">{{item.category}}</span>
 							{{item.date|date('d/m/Y')}}

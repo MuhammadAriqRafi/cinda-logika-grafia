@@ -43,20 +43,20 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
         'height' => 282,
     ];
 
-    private function generateCoverImageUrl($coverImageName)
+    private function generateThumbCoverImageUrl($coverImageName)
     {
-        return base_url() . '/' . self::IMAGEPATH . $coverImageName;
+        return base_url() . '/' . self::IMAGEPATH . 'thumb_' . $coverImageName;
     }
 
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
-        $posts = $this->select('posts.id, posts.title, categories.name as category, posts.excerpt, posts.cover')
+        $posts = $this->select('posts.id, posts.title, categories.name as category, posts.excerpt, posts.cover, posts.slug')
             ->join('categories', 'posts.category_id = categories.id')
             ->orderBy($orderColumn, $orderDirection)
             ->findAll($length, $start);
 
         foreach ($posts as $key => $post) {
-            $posts[$key]['cover'] = $this->generateCoverImageUrl($posts[$key]['cover']);
+            $posts[$key]['cover'] = $this->generateThumbCoverImageUrl($posts[$key]['cover']);
         }
 
         return $posts;
@@ -78,7 +78,7 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
             ->findAll($length, $start);
 
         foreach ($posts as $key => $post) {
-            $posts[$key]['cover'] = $this->generateCoverImageUrl($posts[$key]['cover']);
+            $posts[$key]['cover'] = $this->generateThumbCoverImageUrl($posts[$key]['cover']);
         }
 
         return $posts;
@@ -101,5 +101,20 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
             'category_id' => 'required',
             'content' => 'required',
         ];
+    }
+
+    public function getRecordsExcept($start, $length, $except)
+    {
+        $posts = $this->select('posts.id, posts.title, categories.name as category, posts.excerpt, posts.cover, posts.slug')
+            ->where('posts.id !=', $except)
+            ->join('categories', 'posts.category_id = categories.id')
+            ->orderBy('created_at', 'DESC')
+            ->findAll($length, $start);
+
+        foreach ($posts as $key => $post) {
+            $posts[$key]['cover'] = $this->generateThumbCoverImageUrl($posts[$key]['cover']);
+        }
+
+        return $posts;
     }
 }

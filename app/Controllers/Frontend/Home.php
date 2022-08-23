@@ -41,7 +41,7 @@ class Home extends BaseController
         $this->data['title'] = "Insight | " . $this->data['sitename'];
         $this->data['desc'] = "We present to you many technology informations to support your mobilization.";
         $model = new \App\Models\Posts();
-        $this->data['posts'] = $model->findAll(0, 4);
+        $this->data['posts'] = $model->getRecords(0, 4, 'created_at', 'DESC');
         return $this->twig->render("contents/frontend/insight", $this->data);
     }
 
@@ -51,7 +51,7 @@ class Home extends BaseController
         $this->data['post'] = $model->where('slug', $slug)->first();
         $this->data['title'] = $this->data['post']['title'] . " | " . $this->data['sitename'];
         $this->data['desc'] = $this->data['post']['excerpt'];
-        $this->data['posts'] = $model->where("id !=", $this->data['post']['id'])->findAll(0, 3);
+        $this->data['posts'] = $model->getRecordsExcept(0, 3, $this->data['post']['id']);
         return $this->twig->render("contents/frontend/detail", $this->data);
     }
 }
