@@ -305,6 +305,10 @@ class CRUDController extends BaseController
             $this->deletefile();
             $this->storeFile();
             $this->removeFileFromArrayData();
+            if ($this->isGenerateFileSizeToSetInArrayData()) {
+                $isResizeError = $this->generateFileSizeTo($this->getGenerateFileSizeTo());
+                if (gettype($isResizeError) != 'boolean') $response['error'] = $isResizeError;
+            }
         }
 
         $response = [

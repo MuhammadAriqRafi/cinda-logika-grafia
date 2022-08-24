@@ -104,6 +104,7 @@ class PostController extends CRUDController
             'content' => $rawContent,
             'slug' => url_title($title, '-', true),
             'category_id' => $this->request->getVar('category_id'),
+            'generate_file_size_to' => 'thumb',
         ];
 
         if ($file->getError() != 4) {

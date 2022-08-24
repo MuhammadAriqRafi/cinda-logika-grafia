@@ -4095,6 +4095,10 @@ body[dir="rtl"] .checkbox:checked,
   padding: 2rem;
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;

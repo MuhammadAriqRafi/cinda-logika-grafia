@@ -58,15 +58,8 @@
 
                             <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li>
-                                    <a class="justify-between">
-                                        Profile
-                                        <span class="badge">New</span>
-                                    </a>
-                                </li>
-                                <li><a>Settings</a></li>
-                                <li>
-                                    <form action="<?= route_to('logout') ?>" method="POST" class="btn btn-error mt-4">
-                                        <button type="submit">LOGOUT</button>
+                                    <form action="<?= route_to('logout') ?>" method="POST" class="mt-4 p-0">
+                                        <button type="submit" class="btn btn-error w-full">LOGOUT</button>
                                     </form>
                                 </li>
                             </ul>
