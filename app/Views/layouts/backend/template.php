@@ -64,7 +64,11 @@
                                     </a>
                                 </li>
                                 <li><a>Settings</a></li>
-                                <li><a class="btn btn-error mt-4" href="<?= route_to('logout'); ?>">Logout</a></li>
+                                <li>
+                                    <form action="<?= route_to('logout') ?>" method="POST" class="btn btn-error mt-4">
+                                        <button type="submit">LOGOUT</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                         <!-- End of Profile Dropdows -->
@@ -93,7 +97,9 @@
                     </a>
                     <?= $this->include('layouts/backend/sidebar'); ?>
                     <div class="btn-group sm:hidden inline mt-auto mx-auto mb-2">
-                        <a class="btn btn-active" href="<?= route_to('logout'); ?>">Logout</a>
+                        <form action="<?= route_to('logout') ?>" method="POST" class="btn btn-error mt-4">
+                            <button type="submit">LOGOUT</button>
+                        </form>
                     </div>
                 </ul>
             </div>

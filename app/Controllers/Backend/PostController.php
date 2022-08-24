@@ -31,17 +31,17 @@ class PostController extends CRUDController
     {
         $data = [
             'title' => 'Insights',
-            'indexUrl' => '/backend/posts/ajaxIndex',
-            'storeUrl' => '/backend/posts/store',
-            'destroyUrl' => '/backend/posts/destroy/',
-            'updateUrl' => '/backend/posts/update/',
-            'editUrl' => '/backend/posts/edit/',
-            'indexCategoryUrl' => '/backend/categories/index',
-            'ajaxIndexCategoryUrl' => '/backend/categories/ajaxIndex',
-            'storeCategoryUrl' => '/backend/categories/store',
-            'destroyCategoryUrl' => '/backend/categories/destroy/',
-            'updateCategoryUrl' => '/backend/categories/update/',
-            'editCategoryUrl' => '/backend/categories/edit/',
+            'indexUrl' => 'backend/posts/ajaxIndex',
+            'storeUrl' => 'backend/posts/store',
+            'destroyUrl' => 'backend/posts/destroy/',
+            'updateUrl' => 'backend/posts/update/',
+            'editUrl' => 'backend/posts/edit/',
+            'indexCategoryUrl' => 'backend/categories/index',
+            'ajaxIndexCategoryUrl' => 'backend/categories/ajaxIndex',
+            'storeCategoryUrl' => 'backend/categories/store',
+            'destroyCategoryUrl' => 'backend/categories/destroy/',
+            'updateCategoryUrl' => 'backend/categories/update/',
+            'editCategoryUrl' => 'backend/categories/edit/',
         ];
 
         return view('contents/backend/posts/index', $data);

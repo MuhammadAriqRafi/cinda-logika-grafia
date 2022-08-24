@@ -18,16 +18,7 @@
     <div class="container mx-auto flex justify-center items-center h-screen gap-x-56 flex-col gap-y-8 sm:flex-row">
         <img src="<?= base_url('assets/images/logo-small.png') ?>" alt="Cinda Logika Grafia">
         <div class="flex flex-col h-fit p-8 rounded-lg shadow-xl">
-            <!-- <div class="alert alert-error shadow-lg mb-6">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Error! Task failed successfully.</span>
-                </div>
-            </div> -->
-
-            <form id="loginForm"></form>
+            <form id="loginForm" style="max-width: 270px;"></form>
             <button class="btn btn-primary mt-4 text-base font-bold" onclick="authenticate()">Login</button>
         </div>
     </div>
@@ -40,6 +31,14 @@
     <script src="<?= base_url('js/formUtilities.js'); ?>"></script>
     <script>
         const form = 'loginForm';
+
+        const displayError = (errorInput) => {
+            errorInput.forEach(error => {
+                $(`input[name="${error.input_name}"]`).addClass('input-error');
+                $(`#error-${error.input_name}`).text(error.error_message);
+                $(`#error-${error.input_name}`).removeClass('hidden');
+            });
+        }
 
         const authenticate = () => {
             const url = '<?= site_url() . $authenticateUrl ?>';
@@ -54,7 +53,12 @@
                 contentType: false,
                 dataType: "json",
                 success: function(response) {
-                    console.log(response);
+                    if (response.status) {
+                        alert(response.message);
+                        window.location.replace(response.data);
+                    } else {
+                        if (response.error_input) displayError(response.error_input);
+                    }
                 }
             });
         }

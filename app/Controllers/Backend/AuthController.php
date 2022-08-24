@@ -3,9 +3,17 @@
 namespace App\Controllers\Backend;
 
 use App\Controllers\BaseController;
+use App\Models\Administrator;
 
 class AuthController extends BaseController
 {
+    protected $administrator;
+
+    public function __construct()
+    {
+        $this->administrator = new Administrator();
+    }
+
     public function index()
     {
         $data = [
@@ -30,58 +38,36 @@ class AuthController extends BaseController
 
     public function authenticate()
     {
-        $username = $this->request->getVar('username');
-        $password = $this->request->getVar('password');
-
-        if ($username == 'admin' && $password == 'admin') {
-            $data = [
-                'session_id' => session_id(),
-                'isLoggedIn' => true
-            ];
-
-            session()->set($data);
-
-            return $this->response->setJSON(redirect()->route('backend.posts.index'));
+        $rules = $this->validationRules();
+        if (!$this->validate($rules)) {
+            return $this->response->setJSON(CRUDController::generateErrorMessageFrom($rules));
         }
 
-        return $this->response->setJSON(['ga masuk']);
+        $response = [
+            'status' => true,
+            'message' => 'Login berhasil!',
+            'data' => site_url() . 'backend/posts'
+        ];
 
-        // $rules = $this->validationRules();
-        // if (!$this->validate($rules)) {
-        //     return redirect()->back()->withInput();
-        // }
+        $username = CRUDController::cleanseString($this->request->getVar('username'));
+        $administrator = $this->administrator->select('username, id')
+            ->where('username', $username)
+            ->first();
 
-        // $administrator = $this->administrator->select('nama, admin_id')
-        //     ->where('username', $this->request->getVar('username'))
-        //     ->first();
-        // $payload = [
-        //     'session_id' => session_id(),
-        //     'admin_id' => base64_encode($administrator['admin_id']),
-        //     'nama' => $administrator['nama']
-        // ];
-        // $administratorNewStatus = [
-        //     'admin_id' => $administrator['admin_id'],
-        //     'status' => session_id()
-        // ];
+        $data = [
+            'session_id' => session_id(),
+            'id' => $administrator['id'],
+            'username' => $administrator['username'],
+            'isLoggedIn' => true
+        ];
 
-        // $jwt = $this->generateJwt($payload);
-
-        // if ($this->administrator->save($administratorNewStatus)) return $this->response->setCookie('X-PPD-SESSION', $jwt, 10800, '', '', '', '', true, '')->redirect('/backend');
-        // else redirect()->back();
+        session()->set($data);
+        return $this->response->setJSON($response);
     }
 
-    // public function logout()
-    // {
-    //     $jwt = $this->request->getCookie('X-PPD-SESSION');
-    //     $payload = $this->getJwtPayload($jwt);
-    //     $administrator = $this->administrator->select('admin_id')
-    //         ->find(base64_decode($payload->admin_id))['admin_id'];
-    //     $administratorNewStatus = [
-    //         'admin_id' => $administrator,
-    //         'status' => null
-    //     ];
-
-    //     if ($this->administrator->save($administratorNewStatus)) return $this->response->setCookie('X-PPD-SESSION', '')->redirect('/backend/login');
-    //     else redirect()->back();
-    // }
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->route('backend.login');
+    }
 }

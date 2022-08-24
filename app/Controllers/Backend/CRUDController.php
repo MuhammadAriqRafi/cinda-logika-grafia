@@ -21,7 +21,7 @@ class CRUDController extends BaseController
         $this->data = $data;
     }
 
-    protected function cleanseString($string): string
+    public static function cleanseString($string): string
     {
         return trim(html_entity_decode(strip_tags($string)));
     }
@@ -82,7 +82,7 @@ class CRUDController extends BaseController
         return date('YmjHis') . '_' . random_string('alnum', 4) . '_' . $context . '.' . $extension;
     }
 
-    private function generateErrorMessageFrom($rules): array
+    public static function generateErrorMessageFrom($rules): array
     {
         $validation = Services::validation();
 

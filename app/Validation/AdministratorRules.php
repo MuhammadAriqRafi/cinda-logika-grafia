@@ -2,6 +2,8 @@
 
 namespace App\Validation;
 
+use App\Models\Administrator;
+
 class AdministratorRules
 {
     public function validate(string $str, string $fields, array $data)

@@ -466,6 +466,8 @@
                     showCategoryFormCreateBtn();
                     hideCategoryFormBackBtn();
                     hideForm();
+                } else {
+                    if (response.error_input) displayError(response.error_input)
                 }
             }
         });
@@ -511,6 +513,8 @@
                     showCategoryTable();
                     showCategoryFormCreateBtn();
                     hideForm();
+                } else {
+                    if (response.error_input) displayError(response.error_input);
                 }
             }
         });

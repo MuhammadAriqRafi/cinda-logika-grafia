@@ -15,11 +15,11 @@ class GuestbookController extends CRUDController
     {
         $data = [
             'title' => 'Guestbook',
-            'indexUrl' => '/backend/guestbooks/ajaxIndex',
-            'storeUrl' => '/backend/guestbooks/store',
-            'showUrl' => '/backend/guestbooks/show/',
-            'updateUrl' => '/backend/guestbooks/update/',
-            'destroyUrl' => '/backend/guestbooks/destroy/',
+            'indexUrl' => 'backend/guestbooks/ajaxIndex',
+            'storeUrl' => 'backend/guestbooks/store',
+            'showUrl' => 'backend/guestbooks/show/',
+            'updateUrl' => 'backend/guestbooks/update/',
+            'destroyUrl' => 'backend/guestbooks/destroy/',
         ];
 
         return view('contents/backend/guestbooks/index', $data);
