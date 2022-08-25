@@ -59,7 +59,6 @@ class GuestbookController extends CRUDController
             'email' => $this->request->getVar('email'),
             'phone' => $this->request->getVar('phone'),
             'message' => $this->request->getVar('message'),
-            'created_at' => $this->generateCurrentEpochTime()
         ];
 
         $this->setData($data);

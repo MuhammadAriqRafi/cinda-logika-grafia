@@ -66,20 +66,12 @@
         $(`#${formActionBtn}`).text(state);
     }
 
-    const setFormAction = (url) => {
-        $(`#${form}`).attr('action', url);
-    }
-
     const setSelectedCategoryDropdown = (categoryId) => {
         $(`option[value="${categoryId}"]`).prop('selected', true);
     }
 
     const getFormCurrentActionState = () => {
         return $(`#${formActionBtn}`).text();
-    }
-
-    const getFormAction = () => {
-        return $(`#${form}`).attr('action');
     }
 
     const getCategoryData = () => {
@@ -174,14 +166,6 @@
             }
         }
     }
-
-    const hideForm = () => {
-        $(`#${form}`).hide();
-    }
-
-    const showForm = () => {
-        $(`#${form}`).show();
-    }
     // End of Post Helper
 
     // CRUD Post
@@ -189,17 +173,17 @@
         const url = siteUrl + '<?= $storeUrl ?>';
 
         setModalLabelAndModalActionBtnText('Tambah');
-        setFormCancelBtnAction('closeModal()');
+        setFormCancelBtnAction(formCancelBtn, 'closeModal()');
         hideCategoryFormCreateBtn();
         hideCategoryFormBackBtn();
-        setFormAction(url);
+        setFormAction(form, url);
         resetForm(form);
-        showForm();
+        showForm(form);
         openModal();
     }
 
     const store = (data) => {
-        const url = getFormAction();
+        const url = getFormAction(form);
 
         $.ajax({
             type: "POST",
@@ -242,14 +226,16 @@
             dataType: "json",
             success: function(response) {
                 if (response.status) {
+                    const url = siteUrl + '<?= $updateUrl ?>' + id;
+
                     setModalLabelAndModalActionBtnText('Ubah');
-                    setFormCancelBtnAction('closeModal()');
+                    setFormCancelBtnAction(formCancelBtn, 'closeModal()');
                     hideCategoryFormCreateBtn();
                     hideCategoryFormBackBtn();
-                    setFormAction(siteUrl + '<?= $updateUrl ?>' + id);
+                    setFormAction(form, url);
                     populateForm(response);
                     setSelectedCategoryDropdown(response.category_id);
-                    showForm();
+                    showForm(form);
                     openModal();
                 } else {
                     alert(response.message);
@@ -259,7 +245,7 @@
     }
 
     const update = (data) => {
-        const url = getFormAction();
+        const url = getFormAction(form);
         data.append('_method', 'PATCH');
 
         $.ajax({
@@ -299,24 +285,12 @@
     // End of CRUD Post
 
     // Category Helper
-    const setFormActionBtnAction = (action) => {
-        $(`#${formActionBtn}`).attr('onclick', action);
-    }
-
-    const setFormCancelBtnAction = (action) => {
-        $(`#${formCancelBtn}`).attr('onclick', action);
-    }
-
     const hideCategoryTable = () => {
         $(`#${categoryTable}_wrapper`).hide();
     }
 
     const hideCategoryFormCreateBtn = () => {
         $(`#${categoryFormCreateBtn}`).hide();
-    }
-
-    const hideFormActionBtn = () => {
-        $(`#${formActionBtn}`).hide();
     }
 
     const hideCategoryFormBackBtn = () => {
@@ -329,10 +303,6 @@
 
     const showCategoryFormCreateBtn = () => {
         $(`#${categoryFormCreateBtn}`).show();
-    }
-
-    const showFormActionBtn = () => {
-        $(`#${formActionBtn}`).show();
     }
 
     const showCategoryFormBackBtn = () => {
@@ -373,11 +343,11 @@
 
     const closeCategory = () => {
         hideCategoryTable();
-        showFormActionBtn();
+        showFormActionBtn(formActionBtn);
         hideCategoryFormCreateBtn();
         switchFormTo('post');
         renderSummernote();
-        setFormActionBtnAction('save()');
+        setFormActionBtnAction(formActionBtn, 'save()');
         closeModal();
     }
 
@@ -406,9 +376,9 @@
     // CRUD Category
     const indexCategory = () => {
         setModalLabelAndModalActionBtnText('Index', 'Category');
-        setFormCancelBtnAction('closeCategory()');
-        hideFormActionBtn();
-        hideForm();
+        setFormCancelBtnAction(formCancelBtn, 'closeCategory()');
+        hideFormActionBtn(formActionBtn);
+        hideForm(form);
         hideCategoryFormBackBtn();
         renderCategoryDatatable();
         showCategoryTable();
@@ -436,20 +406,21 @@
     }
 
     const createCategory = () => {
+        const url = siteUrl + '<?= $storeCategoryUrl ?>';
+
         hideCategoryTable();
         hideCategoryFormCreateBtn();
-        showForm();
-        showFormActionBtn();
+        showForm(form);
+        showFormActionBtn(formActionBtn);
         showCategoryFormBackBtn();
-        setFormAction(siteUrl + '<?= $storeCategoryUrl ?>');
-        setFormActionBtnAction('saveCategory()');
+        setFormAction(form, url);
+        setFormActionBtnAction(formActionBtn, 'saveCategory()');
         setModalLabelAndModalActionBtnText('Tambah', 'Category');
         switchFormTo('category');
-        // TODO: Create back button to indexCategory
     }
 
     const storeCategory = (data) => {
-        const url = getFormAction();
+        const url = getFormAction(form);
 
         $.ajax({
             type: "POST",
@@ -465,7 +436,7 @@
                     showCategoryTable();
                     showCategoryFormCreateBtn();
                     hideCategoryFormBackBtn();
-                    hideForm();
+                    hideForm(form);
                 } else {
                     if (response.error_input) displayError(response.error_input)
                 }
@@ -481,14 +452,16 @@
             url: url,
             dataType: "json",
             success: function(response) {
+                const url = siteUrl + '<?= $updateCategoryUrl ?>' + id;
+
                 hideCategoryTable();
                 hideCategoryFormCreateBtn();
-                showForm();
-                showFormActionBtn();
+                showForm(form);
+                showFormActionBtn(formActionBtn);
                 showCategoryFormBackBtn();
                 setModalLabelAndModalActionBtnText('Ubah', 'Category');
-                setFormAction(siteUrl + '<?= $updateCategoryUrl ?>' + id);
-                setFormActionBtnAction('saveCategory()');
+                setFormAction(form, url);
+                setFormActionBtnAction(formActionBtn, 'saveCategory()');
                 switchFormTo('category');
                 populateCategoryForm(response);
             }
@@ -496,7 +469,7 @@
     }
 
     const updateCategory = (data) => {
-        const url = getFormAction();
+        const url = getFormAction(form);
         data.append('_method', 'PATCH');
 
         $.ajax({
@@ -512,7 +485,7 @@
                     reloadDatatable(categoryTable);
                     showCategoryTable();
                     showCategoryFormCreateBtn();
-                    hideForm();
+                    hideForm(form);
                 } else {
                     if (response.error_input) displayError(response.error_input);
                 }

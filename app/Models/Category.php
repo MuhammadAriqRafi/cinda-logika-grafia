@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Controllers\Backend\Interfaces\CRUDInterface;
 use App\Controllers\Backend\Interfaces\DatatableInterface;
 use CodeIgniter\Model;
 
-class Category extends Model implements DatatableInterface, CRUDInterface
+class Category extends Model implements DatatableInterface
 {
     protected $DBGroup          = 'default';
     protected $table            = 'categories';
@@ -18,10 +17,16 @@ class Category extends Model implements DatatableInterface, CRUDInterface
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'created_at'];
 
+    // Validation
+    protected $validationRules      = ['name' => 'required'];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
+    protected $beforeInsert   = ['addCurrentEpochTime'];
+    protected $afterFind      = ['convertEpochTimeToDate'];
 
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
@@ -48,12 +53,5 @@ class Category extends Model implements DatatableInterface, CRUDInterface
         return $this->select('id, name')
             ->like('name', $search)
             ->countAllResults();
-    }
-
-    public function fetchValidationRules(): array
-    {
-        return $rules = [
-            'name' => 'required'
-        ];
     }
 }

@@ -23,22 +23,9 @@ class AuthController extends BaseController
         return view('contents/backend/auth/index', $data);
     }
 
-    private function validationRules()
-    {
-        return $rules = [
-            'username' => 'required',
-            'password' => [
-                'rules' => 'required|validate[username,password]',
-                'errors' => [
-                    'validate' => 'Email or Password don\'t match'
-                ]
-            ]
-        ];
-    }
-
     public function authenticate()
     {
-        $rules = $this->validationRules();
+        $rules = $this->administrator->getValidationRules();
         if (!$this->validate($rules)) {
             return $this->response->setJSON(CRUDController::generateErrorMessageFrom($rules));
         }

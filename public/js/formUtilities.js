@@ -88,3 +88,35 @@ const resetForm = (formId) => {
     $('.img-preview').attr('src', '#');
     $('#summernote').summernote('reset');
 }
+
+const setFormAction = (formId, url) => {
+    $(`#${formId}`).attr('action', url);
+}
+
+const getFormAction = (formId) => {
+    return $(`#${formId}`).attr('action');
+}
+
+const showForm = (formId) => {
+    $(`#${formId}`).show();
+}
+
+const hideForm = (formId) => {
+    $(`#${formId}`).hide();
+}
+
+const hideFormActionBtn = (formActionBtnId) => {
+    $(`#${formActionBtnId}`).hide();
+}
+
+const showFormActionBtn = (formActionBtnId) => {
+    $(`#${formActionBtnId}`).show();
+}
+
+const setFormActionBtnAction = (formActionBtnId, action) => {
+    $(`#${formActionBtnId}`).attr('onclick', action);
+}
+
+const setFormCancelBtnAction = (formCancelBtnId, action) => {
+    $(`#${formCancelBtnId}`).attr('onclick', action);
+}

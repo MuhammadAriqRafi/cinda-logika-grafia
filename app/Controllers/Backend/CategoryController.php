@@ -25,8 +25,7 @@ class CategoryController extends CRUDController
     public function store()
     {
         $data = [
-            'name' => $this->request->getVar('name'),
-            'created_at' => $this->generateCurrentEpochTime()
+            'name' => $this->request->getVar('name')
         ];
 
         $this->setData($data);

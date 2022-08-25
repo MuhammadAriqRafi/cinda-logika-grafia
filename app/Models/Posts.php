@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Controllers\Backend\Interfaces\CRUDInterface;
 use App\Controllers\Backend\Interfaces\DatatableInterface;
 use CodeIgniter\Model;
 
-class Posts extends Model implements DatatableInterface, CRUDInterface
+class Posts extends Model implements DatatableInterface
 {
     protected $DBGroup          = 'default';
     protected $table            = 'posts';
@@ -26,7 +25,12 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'title' => 'required',
+        'cover' => 'max_size[cover,1024]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]',
+        'category_id' => 'required',
+        'content' => 'required',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
@@ -91,16 +95,6 @@ class Posts extends Model implements DatatableInterface, CRUDInterface
             ->orLike('category_id', $search)
             ->orLike('excerpt', $search)
             ->countAllResults();
-    }
-
-    public function fetchValidationRules($options = []): array
-    {
-        return $rules = [
-            'title' => 'required',
-            'cover' => $options['cover'] ?? null . 'max_size[cover,1024]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]',
-            'category_id' => 'required',
-            'content' => 'required',
-        ];
     }
 
     public function getRecordsExcept($start, $length, $except)

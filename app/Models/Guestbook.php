@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Controllers\Backend\Interfaces\CRUDInterface;
 use App\Controllers\Backend\Interfaces\DatatableInterface;
 use CodeIgniter\Model;
 
-class Guestbook extends Model implements DatatableInterface, CRUDInterface
+class Guestbook extends Model implements DatatableInterface
 {
     protected $DBGroup          = 'default';
     protected $table            = 'guestbooks';
@@ -19,43 +18,32 @@ class Guestbook extends Model implements DatatableInterface, CRUDInterface
     protected $allowedFields    = ['subject', 'name', 'email', 'phone', 'message', 'created_at', 'status'];
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'subject' => 'required',
+        'name' => 'required',
+        'email' => 'required|valid_email',
+        'phone' => 'required',
+        'message' => 'required',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
-
-    private function convertEpochTimeToDate($epochTime)
-    {
-        return date("Y-m-d H:i:s", substr($epochTime, 0, 10));
-    }
+    protected $beforeInsert   = ['addCurrentEpochTime'];
+    protected $afterFind      = ['convertEpochTimeToDate'];
 
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
-        $response = $this->select('id, subject, name, email, phone, created_at, status')
+        return $this->select('id, subject, name, email, phone, created_at, status')
             ->orderBy($orderColumn, $orderDirection)
             ->findAll($length, $start);
-
-        foreach ($response as $key => $value) {
-            $response[$key]['created_at'] = $this->convertEpochTimeToDate($value['created_at']);
-        }
-
-        return $response;
     }
 
     public function getRecordSearch($search, $start, $length, $orderColumn, $orderDirection): array
     {
-        $response = $this->select('id, subject, name, email, phone, created_at, status')
+        return $this->select('id, subject, name, email, phone, created_at, status')
             ->orderBy($orderColumn, $orderDirection)
             ->like('subject', $search)
             ->orLike('name', $search)
@@ -64,12 +52,6 @@ class Guestbook extends Model implements DatatableInterface, CRUDInterface
             ->orLike('message', $search)
             ->orLike('status', $search)
             ->findAll($length, $start);
-
-        foreach ($response as $key => $value) {
-            $response[$key]['created_at'] = $this->convertEpochTimeToDate($value['created_at']);
-        }
-
-        return $response;
     }
 
     public function getTotalRecords(): int
@@ -87,16 +69,5 @@ class Guestbook extends Model implements DatatableInterface, CRUDInterface
             ->orLike('message', $search)
             ->orLike('status', $search)
             ->countAllResults();
-    }
-
-    public function fetchValidationRules(): array
-    {
-        return $rules = [
-            'subject' => 'required',
-            'name' => 'required',
-            'email' => 'required|valid_email',
-            'phone' => 'required',
-            'message' => 'required',
-        ];
     }
 }

@@ -54,6 +54,7 @@ class PostController extends CRUDController
 
     public function store()
     {
+        $validationRules = $this->model->getValidationRules();
         $title = $this->request->getVar('title');
         $rawContent = $this->request->getVar('content');
         $content = $this->cleanseString($rawContent);
@@ -71,12 +72,10 @@ class PostController extends CRUDController
             'file_path' => Posts::IMAGEPATH,
             'file_context' => 'post',
             'generate_file_size_to' => 'thumb',
-            'validation_options' => [
-                'cover' => 'uploaded[cover]|'
-            ]
         ];
 
         $this->setData($data);
+        $this->model->setValidationRule('cover', 'uploaded[cover]|' . $validationRules['cover']);
         return parent::store();
     }
 
@@ -131,7 +130,6 @@ class PostController extends CRUDController
             'file_path' => Posts::IMAGEPATH
         ];
 
-        // TODO: Also delete thumb image
         $this->setData($data);
         return parent::destroy($id);
     }

@@ -38,13 +38,6 @@ class CRUDController extends BaseController
         return $selected_fields;
     }
 
-    private function getValidationOptions()
-    {
-        $validations_options = $this->data['validation_options'];
-        $this->removeValidationOptionsFromArrayData();
-        return $validations_options;
-    }
-
     private function getGenerateFileSizeTo()
     {
         $generate_file_size_to = $this->data['generate_file_size_to'];
@@ -61,12 +54,6 @@ class CRUDController extends BaseController
     private function isSelectedFieldsSetInArrayData(): bool
     {
         if (array_key_exists('selected_fields', $this->data)) return true;
-        return false;
-    }
-
-    private function isValidationOptionsSetInArrayData(): bool
-    {
-        if (array_key_exists('validation_options', $this->data)) return true;
         return false;
     }
 
@@ -100,11 +87,6 @@ class CRUDController extends BaseController
         }
 
         return $data;
-    }
-
-    protected function generateCurrentEpochTime()
-    {
-        return round(microtime(true) * 1000);
     }
 
     private function storeFile(): bool
@@ -176,11 +158,6 @@ class CRUDController extends BaseController
         unset($this->data['selected_fields']);
     }
 
-    private function removeValidationOptionsFromArrayData(): void
-    {
-        unset($this->data['validation_options']);
-    }
-
     private function removeGenerateFileSizeToFromArrayData(): void
     {
         unset($this->data['generate_file_size_to']);
@@ -189,7 +166,6 @@ class CRUDController extends BaseController
     // CRUD
     /*
         ! The model should implement DatatableInterface
-        ! The model should implement CRUDInterface
     */
     protected function index()
     {
@@ -230,7 +206,7 @@ class CRUDController extends BaseController
 
     protected function store()
     {
-        $rules = $this->isValidationOptionsSetInArrayData() ? $this->model->fetchValidationRules($this->getValidationOptions()) : $this->model->fetchValidationRules();
+        $rules = $this->model->getValidationRules();
         if (!$this->validate($rules)) {
             return $this->response->setJSON($this->generateErrorMessageFrom($rules));
         }
@@ -296,7 +272,7 @@ class CRUDController extends BaseController
 
     protected function update()
     {
-        $rules = $this->model->fetchValidationRules();
+        $rules = $this->model->getValidationRules();
         if (!$this->validate($rules)) {
             return $this->response->setJSON($this->generateErrorMessageFrom($rules));
         }
