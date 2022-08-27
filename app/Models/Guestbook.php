@@ -34,6 +34,33 @@ class Guestbook extends Model implements DatatableInterface
     protected $beforeInsert   = ['addCurrentEpochTime'];
     protected $afterFind      = ['convertEpochTimeToDate'];
 
+    protected function generateCurrentEpochTime()
+    {
+        return round(microtime(true) * 1000);
+    }
+
+    protected function addCurrentEpochTime(array $data)
+    {
+        $data['data']['created_at'] = $this->generateCurrentEpochTime();
+        return $data;
+    }
+
+    protected function convertEpochTimeToDate(array $responseData)
+    {
+        if ($responseData['data'] != null && array_key_exists('created_at', $responseData['data'])) {
+            if (!isset($responseData['data'][0])) {
+                $responseData['data']['created_at'] = date("Y-m-d H:i:s", substr($responseData['data']['created_at'], 0, 10));
+                return $responseData;
+            }
+
+            foreach ($responseData['data'] as $key => $data) {
+                $responseData['data'][$key]['created_at'] = date("Y-m-d H:i:s", substr($data['created_at'], 0, 10));
+            }
+        }
+
+        return $responseData;
+    }
+
     public function getRecords($start, $length, $orderColumn, $orderDirection): array
     {
         return $this->select('id, subject, name, email, phone, created_at, status')
