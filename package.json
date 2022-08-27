@@ -1,0 +1,30 @@
+{
+    "name": "cinda-logika-grafia",
+    "version": "1.0.0",
+    "description": "## What is CodeIgniter?",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "npx tailwindcss -i ./resources/css/app.css -o ./public/css/app.css --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MuhammadAriqRafi/cinda-logika-grafia.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MuhammadAriqRafi/cinda-logika-grafia/issues"
+    },
+    "homepage": "https://github.com/MuhammadAriqRafi/cinda-logika-grafia#readme",
+    "devDependencies": {
+        "tailwindcss": "^3.1.8"
+    },
+    "dependencies": {
+        "daisyui": "^2.24.0"
+    }
+}

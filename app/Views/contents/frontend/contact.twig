@@ -2,17 +2,18 @@
 
 {% block content %}
 	<section class="content about-header position-relative" id="about-header">
-		<img src="{{base_url('/assets/images/contact-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh top-0 img-fluid w-100"/>
+		<img src="{{base_url('/assets/images/contact-header.png')}}" id="about-header-image" class="position-absolute top-0 bg-aneh img-fluid w-100"/>
 		<div class="d-flex justify-content-center" id="about-header-text">
 			<div class="d-flex align-items-center">
 				<div class="d-block">
-				<h1 class="text-white bet text-uppercase fs35r text-center d-block" id="about-header-text" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
-					Great relationship<br />begin with a smart<br />conservation
-				</h1>
-				<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" id="about-header-text" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
-					let us know what your <span class="text-primary">craziest dream are</span>, and we<br />
-					will do our best to make them come true.
-				</p>
+					<h1 class="text-white bet text-uppercase fs35r text-center d-block" id="about-header-text" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="100">
+						Great relationship<br/>begin with a smart<br/>conservation
+					</h1>
+					<p class="d-none d-md-block text-white text-uppercase text-center pt-2 fs09r" id="about-header-text" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-once="true" data-aos-duration="2000" data-aos-delay="200">
+						let us know what your
+						<span class="text-primary">craziest dream are</span>, and we<br/>
+						will do our best to make them come true.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -30,36 +31,42 @@
 					<div class="position-relative mb-5">
 						<h2 class="kal text-white blue-line fs20r ps-5">We want to get to know you</h2>
 					</div>
-					<form>
+					<form id="guestbookForm">
 						<div class="row mb-5">
 							<div class="col">
 								<label class="text-white form-label fw-bold">Full Name</label>
-								<input type="text" class="form-control frm-inp rounded-pill" />
+								<input onclick="resetInvalidClass(this)" type="text" name="name" class="form-control frm-inp rounded-pill"/>
+								<div id="error-name" class="invalid-feedback"></div>
 							</div>
 							<div class="col">
 								<label class="form-label text-white fw-bold">E-mail</label>
-								<input type="text" class="form-control frm-inp rounded-pill" />
+								<input onclick="resetInvalidClass(this)" type="text" name="email" class="form-control frm-inp rounded-pill"/>
+								<div id="error-email" class="invalid-feedback"></div>
 							</div>
 						</div>
 						<div class="row mb-5">
 							<div class="col">
 								<label class="text-white form-label fw-bold">Telephone</label>
-								<input type="text" class="form-control frm-inp rounded-pill" />
+								<input onclick="resetInvalidClass(this)" type="text" name="phone" class="form-control frm-inp rounded-pill"/>
+								<div id="error-phone" class="invalid-feedback"></div>
 							</div>
 							<div class="col">
 								<label class="form-label text-white fw-bold">Subject</label>
-								<input type="text" class="form-control frm-inp rounded-pill" />
+								<input onclick="resetInvalidClass(this)" type="text" name="subject" class="form-control frm-inp rounded-pill"/>
+								<div id="error-subject" class="invalid-feedback"></div>
 							</div>
 						</div>
 						<div class="row mb-5">
 							<div class="col">
 								<label class="text-white form-label fw-bold">What's on your mind</label>
-								<textarea  class="form-control frm-inp rounded-5" rows="5"></textarea>
+								<textarea onclick="resetInvalidClass(this)" class="form-control frm-inp rounded-5" name="message" rows="5"></textarea>
+								<div id="error-message" class="invalid-feedback"></div>
 							</div>
 						</div>
 						<div class="text-end">
-							<button class="kal fs15r bg-transparent border-0 text-white text-uppercase">
-								Send <img src="{{base_url('assets/images/arrow.png')}}" height="25px" />
+							<button type="button" class="kal fs15r bg-transparent border-0 text-white text-uppercase" onclick="store()">
+								Send
+								<img src="{{base_url('assets/images/arrow.png')}}" height="25px"/>
 							</button>
 						</div>
 					</form>
@@ -71,7 +78,7 @@
 		<div class="container">
 			<div class="row justify-content-md-center">
 				<div class="col-10">
-					<h2 class="bet fs30r text-white">Don't blindy<br />follow the crowd</h2>
+					<h2 class="bet fs30r text-white">Don't blindy<br/>follow the crowd</h2>
 					<p class="text-white pb-4">Let's grow together!</p>
 					<aside class="d-flex text-white contact fs08r">
 						<ul class="d-inline-block border-start pe-5 list">
@@ -94,20 +101,59 @@
 {% endblock %}
 
 {% block scripts %}
-<style>
-	body {
-		background-image: url('{{base_url('assets/images/contact-footer.png')}}');
-		background-repeat: no-repeat;
-		background-size: contain;
-		background-position: bottom center;
-	}
-</style>
-<script>
-		let Sized = function () { document.querySelector('#about-header-text').style.height = '100vh'; } 
-        window.addEventListener('load', (event) => { Sized(); });
-        window.addEventListener('resize', (event) => { Sized(); });
-        document.querySelector(".main-menu li a").classList.remove('active');
-        document.querySelector(".contact").classList.add('active');
+	<style>
+		body {
+			background-image: url('{{base_url('assets/images/contact-footer.png')}}');
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: bottom center;
+		}
+	</style>
+	<script>
+		let Sized = function () {document.querySelector('#about-header-text').style.height = '100vh';}
+		window.addEventListener('load', (event) => {Sized();});
+		window.addEventListener('resize', (event) => {Sized();});
+		document.querySelector(".main-menu li a").classList.remove('active');
+		document.querySelector(".contact").classList.add('active');
 
-</script>
+		const displayError = (errorInput) => {
+			errorInput.forEach(error => {
+				document.getElementById(`error-${error.input_name}`).innerHTML = error.error_message;
+				
+				switch (error.input_name) {
+					case 'message':
+						document.querySelector(`textarea[name="${error.input_name}"]`).classList.add('is-invalid');
+						break;
+					default:
+						document.querySelector(`input[name="${error.input_name}"]`).classList.add('is-invalid');
+						break;
+				};
+			});
+		}
+
+		const resetInvalidClass = (element) => {
+			element.classList.remove('is-invalid');
+		}
+
+		const store = () => {
+			const url = "{{ base_url() }}" + "{{ storeGuestbookUrl }}";
+			const form = document.getElementById('guestbookForm');
+			const data = new FormData(form);
+
+			fetch(url, {
+				method: "POST",
+				body: data
+				})
+				.then(response => response.json())
+				.then(data => {
+					if(data.status){
+						alert(data.message);
+						document.getElementById('guestbookForm').reset();
+					} else {
+						if(data.error_input) displayError(data.error_input);
+					}
+				})
+				.catch(error => console.log(error));
+		}
+	</script>
 {% endblock %}
